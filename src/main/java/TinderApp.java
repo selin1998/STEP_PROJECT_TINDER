@@ -17,6 +17,7 @@ public class TinderApp {
 
             // filters TODO
 
+
             server.setHandler(handler);
             server.start();
             server.join();
