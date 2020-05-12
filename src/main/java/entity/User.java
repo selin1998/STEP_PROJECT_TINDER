@@ -2,24 +2,37 @@ package entity;
 
 import java.util.Objects;
 
-public class User {
+public class User  {
+
     private String name;
     private String surname;
     private String login;
     private String password;
     private String photoUrl;
+    private String job;
 
-    public User(String name, String surname, String login, String password, String photoUrl) {
-        this(name,surname,login,password);
+    public User(String name, String surname, String login, String password,String job, String photoUrl) {
+        this(name,surname,login,password,job);
         this.photoUrl = photoUrl;
     }
 
-    public User(String name, String surname, String login, String password) {
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public User(String name, String surname, String login, String password, String job) {
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
+        this.job=job;
+
     }
+
 
     public String getName() {
         return name;
@@ -74,4 +87,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(login, password);
     }
+
 }

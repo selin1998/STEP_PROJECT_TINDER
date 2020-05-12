@@ -32,5 +32,18 @@ public class DatabaseConnection {
     public static void main(String[] args) throws SQLException {
         DatabaseConnection db=new DatabaseConnection();
         Connection con=db.connect();
+//        String add="INSERT INTO users(user_name,password) VALUES ('aylin@gmail.com', 'selin@34')";
+//        String add2="INSERT INTO users(user_name,password) VALUES ('selin@gmail.com', 'aylin@34')";
+//        PreparedStatement stmt2 = con.prepareStatement(add);
+//        PreparedStatement stmt3 = con.prepareStatement(add2);
+      //  boolean rset = stmt2.execute();
+       // boolean rset2 = stmt3.execute();
+//        String sql="DELETE FROM users WHERE user_id=?";
+//        boolean result=false;
+//
+//            PreparedStatement ps=con.prepareStatement(sql);
+//            ps.setInt(1,1);
+//            ps.executeUpdate();
+
     }
 }

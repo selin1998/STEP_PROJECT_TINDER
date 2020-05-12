@@ -4,27 +4,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Message {
-    private int messageId;
     private String userLoginFrom;
     private String userLoginTo;
     private String message;
     private LocalDateTime time;
 
-    public Message(int messageId, String userLoginFrom, String userLoginTo, String message, LocalDateTime time) {
-        this.messageId = messageId;
+    public Message( String userLoginFrom, String userLoginTo, String message, LocalDateTime time) {
+
         this.userLoginFrom = userLoginFrom;
         this.userLoginTo = userLoginTo;
         this.message = message;
         this.time = time;
     }
 
-    public int getMessageId() {
-        return messageId;
-    }
 
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
-    }
+
 
     public String getUserLoginFrom() {
         return userLoginFrom;
@@ -57,4 +51,6 @@ public class Message {
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
+
+
 }
