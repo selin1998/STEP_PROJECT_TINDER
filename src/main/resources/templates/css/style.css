@@ -1,6 +1,14 @@
+<style type="text/css">
+
+.container{
+    height: 100vh;
+    padding: 20px 0;
+}
+
 html,
 body {
   height: 100%;
+
 }
 
 body {
@@ -10,33 +18,77 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
+  position: relative;
 }
 
-.form-signin {
+.block{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.back{
+  text-decoration: none;
+}
+
+
+.or{
+  width: 100%;
+  position: relative;
+}
+.or:before{
+  content: "";
+  display: block;
+  height: 1px;
+  width: 43%;
+  background: grey;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+.or:after{
+  content: "";
+  display: block;
+  height: 1px;
+  width: 43%;
+  background: grey;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.form-users{
+  height: 100%;
+  width: 100%;
+}
+
+.form {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
-.form-signin .checkbox {
+.form .checkbox {
   font-weight: 400;
 }
-.form-signin .form-control {
+.form .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
   font-size: 16px;
 }
-.form-signin .form-control:focus {
+.form .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
+.form input {
+  margin-bottom: 10px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -91,13 +143,6 @@ i {  vertical-align: middle; }
 .avatar-img {
   display: flex;
   align-items: center;
-}
-
-.img-fluid{
-  height: auto;
-  width: auto;
-  max-width: 100px;
-  max-height: 100px;
 }
 
 .img-circle {
@@ -363,6 +408,7 @@ input:focus{
 }
 .msg-box{
   margin-top: 35px;
+  background: #fff;
 }
 .msg-box i{
   color: #404040;
@@ -374,3 +420,27 @@ input:focus{
   outline: none;
 }
 
+.chat-container {
+  position: fixed;
+  bottom: -20px;
+  left: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.chat-content {
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.send-msg p {
+  word-break: break-all;
+}
+
+.receive-msg p {
+  word-break: break-all;
+}
+</style>

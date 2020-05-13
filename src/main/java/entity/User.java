@@ -17,6 +17,11 @@ public class User  {
         this.photoLink = photoLink;
     }
 
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public String getJob() {
         return job;
     }
