@@ -1,5 +1,7 @@
 package db;
 
+import entity.User;
+
 import java.sql.*;
 
 public class DatabaseConnection {
@@ -9,7 +11,7 @@ public class DatabaseConnection {
 
     private Connection connection = null;
 
-    private Connection connect() throws SQLException {
+    public Connection connect() throws SQLException {
 
         return DriverManager.getConnection(URL, NAME, PWD);
 
@@ -42,8 +44,25 @@ public class DatabaseConnection {
 //        boolean result=false;
 //
 //            PreparedStatement ps=con.prepareStatement(sql);
-//            ps.setInt(1,1);
+//            ps.setInt(1,2);
 //            ps.executeUpdate();
+
+//        String sql="SELECT * FROM users WHERE user_id=? ";
+//        User user=null;
+//
+//            PreparedStatement ps=con.prepareStatement(sql);
+//            ps.setInt(1,2);
+//            ResultSet rs=ps.executeQuery();
+//            while (rs.next()) {
+//                user = new User(rs.getString("login")
+//                        , rs.getString("password")
+//                        , rs.getString("name")
+//                        , rs.getString("surname")
+//                        , rs.getString("job")
+//                        , rs.getString("photolink"));
+//            }
+//
+//        System.out.println(user);
 
     }
 }

@@ -23,17 +23,37 @@ public class UserDAO implements DAO<User> {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1,id);
-            ResultSet rs=ps.executeQuery(sql);
-            user=new User(rs.getString("login")
-                    , rs.getString("password")
-                    , rs.getString("firstname")
-                    , rs.getString("lastname")
-                    , rs.getString("job")
-                    , rs.getString("photolink"));
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                user=new User(rs.getString("login")
+                        , rs.getString("password")
+                        , rs.getString("name")
+                        , rs.getString("surname")
+                        , rs.getString("job")
+                        , rs.getString("photoLink"));
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public int getMaxId(int currentUserId){
+        String sql="select user_id from users where user_id!=? order by user_id  desc limit 1";
+        int result=0;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, currentUserId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                result = rs.getInt("user_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
@@ -43,12 +63,12 @@ public class UserDAO implements DAO<User> {
         ArrayList<User> users = new ArrayList<>();
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery(sql);
+            ResultSet rs=ps.executeQuery();
             while(rs.next()){
                 user=new User(rs.getString("login")
                         , rs.getString("password")
-                        , rs.getString("firstname")
-                        , rs.getString("lastname")
+                        , rs.getString("name")
+                        , rs.getString("surname")
                         , rs.getString("job")
                         , rs.getString("photolink"));
                 users.add(user);
@@ -68,11 +88,11 @@ public class UserDAO implements DAO<User> {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setString(1,user.getLogin());
-            ps.setString(2,user.getSurname());
-            ps.setString(3,user.getPassword());
-            ps.setString(4,user.getName());
+            ps.setString(2,user.getPassword());
+            ps.setString(3,user.getName());
+            ps.setString(4,user.getSurname());
             ps.setString(5,user.getJob());
-            ps.setString(6,user.getPhotoUrl());
+            ps.setString(6,user.getPhotoLink());
             ps.executeUpdate();
             result=true;
 

@@ -26,7 +26,7 @@ public class MessageDAO implements DAO<Message> {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1,id);
-            ResultSet rs=ps.executeQuery(sql);
+            ResultSet rs=ps.executeQuery();
 
             LocalDateTime dateTime = LocalDateTime.parse(rs.getString("time"), formatter);
 
@@ -38,6 +38,11 @@ public class MessageDAO implements DAO<Message> {
             e.printStackTrace();
         }
         return msg;
+    }
+
+    @Override
+    public int getMaxId(int id) {
+        return 0;
     }
 
     @Override

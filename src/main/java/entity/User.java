@@ -4,16 +4,17 @@ import java.util.Objects;
 
 public class User  {
 
-    private String name;
-    private String surname;
+
     private String login;
     private String password;
-    private String photoUrl;
+    private String name;
+    private String surname;
+    private String photoLink;
     private String job;
 
-    public User(String name, String surname, String login, String password,String job, String photoUrl) {
-        this(name,surname,login,password,job);
-        this.photoUrl = photoUrl;
+    public User( String login, String password,String name, String surname,String job, String photoLink) {
+        this(login,password,name,surname,job);
+        this.photoLink = photoLink;
     }
 
     public String getJob() {
@@ -24,7 +25,7 @@ public class User  {
         this.job = job;
     }
 
-    public User(String name, String surname, String login, String password, String job) {
+    public User( String login, String password,String name, String surname, String job) {
         this.name = name;
         this.surname = surname;
         this.login = login;
@@ -66,12 +67,12 @@ public class User  {
         this.password = password;
     }
 
-    public String getPhotoUrl() {
-        return photoUrl;
+    public String getPhotoLink() {
+        return photoLink;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoLink(String photoUrl) {
+        this.photoLink = photoUrl;
     }
 
     @Override
@@ -88,4 +89,15 @@ public class User  {
         return Objects.hash(login, password);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", photoUrl='" + photoLink + '\'' +
+                ", job='" + job + '\'' +
+                '}';
+    }
 }

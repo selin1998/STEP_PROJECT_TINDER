@@ -93,6 +93,13 @@ i {  vertical-align: middle; }
   align-items: center;
 }
 
+.img-fluid{
+  height: auto;
+  width: auto;
+  max-width: 100px;
+  max-height: 100px;
+}
+
 .img-circle {
   border-radius: 50%;
   width: 70px;

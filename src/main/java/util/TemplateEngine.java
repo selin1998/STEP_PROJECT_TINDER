@@ -15,9 +15,9 @@ public class TemplateEngine {
 
   private final Configuration config;
 
-  public TemplateEngine(String root_location) throws IOException {
+  public TemplateEngine() throws IOException {
     this.config = new Configuration(Configuration.VERSION_2_3_28) {{
-        setDirectoryForTemplateLoading(new File("content"));
+        setDirectoryForTemplateLoading(new File("./src/main/resources/templates"));
         setDefaultEncoding(String.valueOf(StandardCharsets.UTF_8));
         setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         setLogTemplateExceptions(false);
@@ -26,7 +26,7 @@ public class TemplateEngine {
   }
 
   public static TemplateEngine folder(String root_location) throws IOException {
-    return new TemplateEngine(root_location);
+    return new TemplateEngine();
   }
 
   public void render(String templateFile, HashMap<String, Object> data, HttpServletResponse resp) {

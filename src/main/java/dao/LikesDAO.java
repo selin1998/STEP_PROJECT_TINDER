@@ -25,7 +25,7 @@ public class LikesDAO implements DAO<Like> {
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1,id);
-            ResultSet rs=ps.executeQuery(sql);
+            ResultSet rs=ps.executeQuery();
 
             like=new Like(rs.getString("login_from")
                     , rs.getString("login_to"));
@@ -33,6 +33,11 @@ public class LikesDAO implements DAO<Like> {
             e.printStackTrace();
         }
         return like;
+    }
+
+    @Override
+    public int getMaxId(int id) {
+        return 0;
     }
 
     @Override
