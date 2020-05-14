@@ -21,7 +21,7 @@ public class UserServlet extends HttpServlet {
     Connection con=db.connect();
     DAO<User> dao=new UserDAO(con);
     int id=1;
-    int currentUserId=5;
+    int currentUserId=6;
 
     public UserServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
