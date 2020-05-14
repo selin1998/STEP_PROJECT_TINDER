@@ -13,7 +13,7 @@ public class TinderApp {
             Server server=new Server(9000);
              TemplateEngine engine=new TemplateEngine();
             ServletContextHandler handler=new ServletContextHandler();
-            handler.addServlet(new ServletHolder(new LoginServlet()),"/login");
+            handler.addServlet(new ServletHolder(new LoginServlet2(engine)),"/login");
             handler.addServlet(new ServletHolder(new RegisterServlet()),"/login/signup");
             handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout");
             handler.addServlet(new ServletHolder(new UserServlet(engine)),"/users");

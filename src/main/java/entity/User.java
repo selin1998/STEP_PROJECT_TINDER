@@ -3,8 +3,7 @@ package entity;
 import java.util.Objects;
 
 public class User  {
-
-
+    private int user_id;
     private String login;
     private String password;
     private String name;
@@ -12,7 +11,17 @@ public class User  {
     private String photoLink;
     private String job;
 
-    public User( String login, String password,String name, String surname,String job, String photoLink) {
+    public User(int user_id, String login, String password, String name, String surname, String photoLink, String job) {
+        this.user_id = user_id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.photoLink = photoLink;
+        this.job = job;
+    }
+
+    public User(String login, String password, String name, String surname, String job, String photoLink) {
         this(login,password,name,surname,job);
         this.photoLink = photoLink;
     }
@@ -20,14 +29,6 @@ public class User  {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
     }
 
     public User( String login, String password,String name, String surname, String job) {
@@ -39,6 +40,13 @@ public class User  {
 
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public String getName() {
         return name;
@@ -78,6 +86,14 @@ public class User  {
 
     public void setPhotoLink(String photoUrl) {
         this.photoLink = photoUrl;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 
     @Override

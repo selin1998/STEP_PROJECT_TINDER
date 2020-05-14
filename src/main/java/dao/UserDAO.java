@@ -81,6 +81,51 @@ public class UserDAO implements DAO<User> {
         return users;
     }
 
+    //get user_id by login and password
+    public int getUserId(String login,String psw) {
+        String sql="SELECT user_id FROM users WHERE login=? and password=?";
+        int result=0;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setString(1,login);
+            ps.setString(2,psw);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                result = rs.getInt("user_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // get user by login and password
+    public User getByLoginAndPassword(String login,String psw) {
+        User user = null;
+        String sql = "SELECT * FROM users WHERE login=? and password=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setString(1,login);
+            ps.setString(2,psw);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {
+                user=new User(rs.getInt("user_id")
+                        , rs.getString("login")
+                        , rs.getString("password")
+                        , rs.getString("name")
+                        , rs.getString("surname")
+                        , rs.getString("job")
+                        , rs.getString("photoLink"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+
     @Override
     public boolean add(User user) {
         boolean result=false;

@@ -1,32 +1,32 @@
 package servlet;
 
+import dao.DAO;
+import dao.UserDAO;
+import db.DatabaseConnection;
 import entity.User;
-import org.eclipse.jetty.servlet.Source;
-import service.CookiesService;
 import service.UserService;
 import util.TemplateEngine;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class LoginServlet extends HttpServlet {
-    private final TemplateEngine engine=new TemplateEngine();
-    private CookiesService cookiesService;
-   // private final Connection connection;
-   // private UserService usersService;
+    private final TemplateEngine engine;
+    private DatabaseConnection db=new DatabaseConnection();
+    private Connection con=db.connect();
+    private UserDAO daoUser=new UserDAO(con);
+    private UserService usersService=new UserService(daoUser);
 
-//    Connection connection
-    public LoginServlet() throws IOException {
-       // this.connection=connection;
-        //this.usersService = new UserService();
+    public LoginServlet(TemplateEngine engine) throws SQLException {
+        this.engine = engine;
     }
 
     @Override
@@ -36,12 +36,9 @@ public class LoginServlet extends HttpServlet {
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("fields", fields);
-//        data.put("email", req.getParameter("email"));
         data.put("message", "Please sign in");
         data.put("root", "/login");
         engine.render("login.ftl", data, resp);
-
-//        engine.render("login.ftl", resp);
     }
 
     @Override

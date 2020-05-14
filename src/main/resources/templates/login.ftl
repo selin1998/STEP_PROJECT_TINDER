@@ -42,8 +42,8 @@
 
     <title>Sign in</title>
 
-    <#include "css/bootstrap.min.css">
-    <#include "css/style.css">
+    <#include "newCss/bootstrap.min.css">
+    <#include "newCss/style.css">
 
 </head>
 
@@ -59,14 +59,10 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="Password" userId="inputPassword" class="form-control" placeholder="Password">
     <input class="btn btn-lg btn-primary btn-block"  class="submit" type="submit" value="Login">
+<#--    <label><a href="/login" class="btn btn-primary btn-block">Log in.</a></label>-->
     <div class="or">or</div>
-<#--    <#if rout = "/login">-->
-<#--        <a href="/reg">Sign up</a>-->
-<#--    <#else>-->
-<#--        <a href="/login">Sign in</a>-->
-<#--    </#if>-->
     <label><a href="/login/signup">Don't have account yet? Click to register.</a></label>
-    <p class="mt-5 mb-3 text-muted">&copy; Tinder 2018</p>
+    <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
 </form>
 
 </body>
