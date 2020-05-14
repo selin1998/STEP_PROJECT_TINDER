@@ -41,7 +41,7 @@ public class MessageDAO implements DAO<Message> {
     }
 
     @Override
-    public int getMaxId(int id) {
+    public int getMaxId() {
         return 0;
     }
 

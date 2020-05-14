@@ -9,7 +9,7 @@
 
     <title>Like page</title>
     <#include "css/bootstrap.min.css">
-        <!-- Custom styles for this template -->
+
     <#include "css/style.css">
 </head>
 <body style="background-color: #f5f5f5;">
@@ -25,11 +25,12 @@
                     <br>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <button name="like" type="submit" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</button>
+                    <button name="dislike" type="submit" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Dislike</button>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <button name="dislike" type="submit" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like</button>
+                    <button name="like" type="submit" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Like</button>
                 </div>
+
                 <!--/col-->
             </div>
         </div>

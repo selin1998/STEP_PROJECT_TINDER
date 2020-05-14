@@ -431,6 +431,11 @@ input:focus{
     left: 10px;
 }
 
+.small-image{
+    width: 70px;
+    height:70px;
+}
+
 .hide {
     display: none;
 }

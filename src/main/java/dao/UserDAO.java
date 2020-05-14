@@ -39,12 +39,11 @@ public class UserDAO implements DAO<User> {
         return user;
     }
 
-    public int getMaxId(int currentUserId){
-        String sql="select user_id from users where user_id!=? order by user_id  desc limit 1";
+    public int getMaxId(){
+        String sql="select user_id from users  order by user_id  desc limit 1";
         int result=0;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, currentUserId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
