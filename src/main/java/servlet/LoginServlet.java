@@ -4,6 +4,7 @@ import dao.DAO;
 import dao.UserDAO;
 import db.DatabaseConnection;
 import entity.User;
+import service.CookiesService;
 import service.UserService;
 import util.TemplateEngine;
 
@@ -24,6 +25,7 @@ public class LoginServlet extends HttpServlet {
     private Connection con=db.connect();
     private UserDAO daoUser=new UserDAO(con);
     private UserService usersService=new UserService(daoUser);
+    private CookiesService cookiesService;
 
     public LoginServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
@@ -46,9 +48,10 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
 
-        //for add cookie
+//        for add cookie
 //        User user=new User(login,password);
-//        cookiesService.addCookie(usersService.getUserId(user));
+       cookiesService = new CookiesService(req, resp);
+       cookiesService.addCookie(usersService.getUserId(login,password));
 
         resp.sendRedirect("/users");
     }

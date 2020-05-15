@@ -44,8 +44,8 @@ public class LoginFilter implements Filter {
 
         if (HttpMethod.POST.name().equalsIgnoreCase(req.getMethod())) {
             try {
-                String login = req.getParameter("email");
-                String password = req.getParameter("password");
+                String login = req.getParameter("Email");
+                String password = req.getParameter("Password");
                 User user = new User(login, password);
 
                 if (!usersService.checkUser(user)) {
@@ -55,7 +55,7 @@ public class LoginFilter implements Filter {
             } catch (Exception e) {
                 data.put("message", e.getMessage());
 //                data.put("rout","/login");
-                engine.render("fail.ftl", data,(HttpServletResponse) response);
+                engine.render("error_message.ftl", data,(HttpServletResponse) response);
             }
         } else {
             chain.doFilter(request, response);

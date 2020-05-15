@@ -20,9 +20,10 @@ public class UserService {
     }
 
     public boolean checkUser(User user){
-        User resp = userDao.getByLoginAndPassword(user.getLogin(),user.getPassword());
-        return resp != null && resp.getUser_id()==(user.getUser_id());
+        User result = userDao.getByLoginAndPassword(user.getLogin(),user.getPassword());
+        return result != null && result.getPassword().equals(user.getPassword());  //&& result.getLogin().equals(user.getLogin());
     }
+
 
 
 }
