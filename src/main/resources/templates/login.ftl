@@ -61,7 +61,7 @@
     <input class="btn btn-lg btn-primary btn-block"  class="submit" type="submit" value="Login">
 <#--    <label><a href="/login" class="btn btn-primary btn-block">Log in.</a></label>-->
     <div class="or">or</div>
-    <label><a href="/login/signup">Don't have account yet? Click to register.</a></label>
+    <label><a href="/signup">Don't have account yet? Click to register.</a></label>
     <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
 </form>
 

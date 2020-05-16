@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 //        data.put("fields", fields);
         data.put("Email","Email");
         data.put("message", "Please sign in");
-        data.put("root", "/login");
+//        data.put("root", "/login");
         engine.render("login.ftl", data, resp);
     }
 

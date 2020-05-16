@@ -38,8 +38,16 @@ public class UserService {
         return result != null && result.getPassword().equals(password) && result.getLogin().equals(login);
     }
 
+    public User checkUserByLogin(User user){
+       return daoUser.getUserByLogin(user);
+    }
+
     public int getUserId(String login,String password) {
        return daoUser.getUserId(login, password);
+    }
+
+    public boolean addUser(User user){
+        return daoUser.add(user);
     }
 
 }

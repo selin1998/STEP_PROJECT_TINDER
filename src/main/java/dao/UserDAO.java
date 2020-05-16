@@ -136,6 +136,31 @@ public class UserDAO implements DAO<User> {
         return user;
     }
 
+    public User getUserByLogin(User user) {
+        String sql="SELECT * FROM users WHERE login=?";
+        User result=null;
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setString(1,user.getLogin());
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                int user_id = rs.getInt("user_id");
+                String name = rs.getString("name");
+                String surname = rs.getString("surname");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String photoLink = rs.getString("photoLink");
+                String job = rs.getString("job");
+
+                result=new User(user_id,login,password,name,surname,job,photoLink);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     @Override
     public boolean add(User user) {
@@ -149,7 +174,8 @@ public class UserDAO implements DAO<User> {
             ps.setString(4,user.getSurname());
             ps.setString(5,user.getJob());
             ps.setString(6,user.getPhotoLink());
-            ps.executeUpdate();
+//            ps.executeUpdate();
+            ps.execute();
             result=true;
 
         } catch (SQLException e) {
