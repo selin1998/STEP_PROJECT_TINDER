@@ -52,10 +52,10 @@
 <#--action=${root}-->
 <form class="form" method="post">
     <h1 class="h3 mb-3 font-weight-normal">${message}</h1>
-    <#list fields as field>
-        <label for=${field} class="sr-only">${field}</label>
-        <input class="form-control" type="text" name=${field} placeholder=${field}>
-    </#list>
+<#--    <#list fields as field>-->
+        <label for="Email" class="sr-only">Email</label>
+        <input class="form-control" type="text" name="Email" placeholder="Email">
+<#--    </#list>-->
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="Password" userId="inputPassword" class="form-control" placeholder="Password">
     <input class="btn btn-lg btn-primary btn-block"  class="submit" type="submit" value="Login">

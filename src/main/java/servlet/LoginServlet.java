@@ -31,11 +31,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<String> fields = new ArrayList<>();
-        fields.add("Email");
+//        List<String> fields = new ArrayList<>();
+//        fields.add("Email");
 
         HashMap<String, Object> data = new HashMap<>();
-        data.put("fields", fields);
+//        data.put("fields", fields);
+        data.put("Email","Email");
         data.put("message", "Please sign in");
         data.put("root", "/login");
         engine.render("login.ftl", data, resp);
