@@ -1,5 +1,6 @@
 package dao;
 
+import db.DatabaseConnection;
 import entity.Like;
 
 import java.sql.Connection;
@@ -8,14 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class LikesDAO implements DAO<Like> {
+    DatabaseConnection db=new DatabaseConnection();
+    Connection con;
 
-    private Connection con;
 
-
-    public LikesDAO(Connection con) {
-        this.con = con;
+    public LikesDAO() throws SQLException {
+        this.con = db.connect();
     }
 
     @Override
@@ -38,6 +41,11 @@ public class LikesDAO implements DAO<Like> {
     @Override
     public int getMaxId() {
         return 0;
+    }
+
+    @Override
+    public List<Like> getAllBy(Predicate<Like> p) {
+        return getAll().stream().filter(p).collect(Collectors.toList());
     }
 
     @Override

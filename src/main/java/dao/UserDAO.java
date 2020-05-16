@@ -1,5 +1,6 @@
 package dao;
 
+import db.DatabaseConnection;
 import entity.User;
 
 import java.sql.Connection;
@@ -8,12 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class UserDAO implements DAO<User> {
-    private Connection con;
+    DatabaseConnection db=new DatabaseConnection();
+    Connection con;
 
-    public UserDAO(Connection con) {
-        this.con = con;
+    public UserDAO() throws SQLException {
+
+        this.con = db.connect();
     }
 
     @Override
@@ -25,7 +30,8 @@ public class UserDAO implements DAO<User> {
             ps.setInt(1,id);
             ResultSet rs=ps.executeQuery();
             while (rs.next()) {
-                user=new User(rs.getString("login")
+                user=new User(rs.getInt("user_id")
+                        ,rs.getString("login")
                         , rs.getString("password")
                         , rs.getString("name")
                         , rs.getString("surname")
@@ -56,6 +62,11 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
+    public List<User> getAllBy(Predicate<User> p) {
+        return getAll().stream().filter(p).collect(Collectors.toList());
+    }
+
+    @Override
     public List<User> getAll() {
         String sql="SELECT * FROM users";
         User user=null;
@@ -64,7 +75,8 @@ public class UserDAO implements DAO<User> {
             PreparedStatement ps=con.prepareStatement(sql);
             ResultSet rs=ps.executeQuery();
             while(rs.next()){
-                user=new User(rs.getString("login")
+                user=new User(rs.getInt("user_id")
+                        , rs.getString("login")
                         , rs.getString("password")
                         , rs.getString("name")
                         , rs.getString("surname")

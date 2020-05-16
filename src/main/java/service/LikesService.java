@@ -13,20 +13,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LikesService {
-    private final TemplateEngine engine;
-    DatabaseConnection db=new DatabaseConnection();
-    Connection con=db.connect();
-    DAO<Like> daoLike=new LikesDAO(con);
+
+
+    DAO<Like> daoLike=new LikesDAO();
     UserService service;
 
-    public LikesService(TemplateEngine engine) throws SQLException {
-        this.engine = engine;
-        service=new UserService(engine);
+    public LikesService() throws SQLException {
+
+        service=new UserService();
     }
 
-    public List<User> getAllLikedUsersIds(int user_id_from){
-        List<Integer> user_id_tos = daoLike.getAll().stream().filter(like -> like.getUser_id_from() == user_id_from).map(l -> l.getUser_id_to()).collect(Collectors.toList());
+    public List<User> getAllLikedUsers(int user_id_from){
+        List<Integer> user_id_tos = daoLike.getAllBy(like -> like.getUser_id_from() == user_id_from).stream().map(l->l.getUser_id_to()).collect(Collectors.toList());
         return  user_id_tos.stream().map(i->service.getById(i)).collect(Collectors.toList());
 
     }
+
+    public void add(Like like){
+        daoLike.add(like);
+    }
+
+
 }

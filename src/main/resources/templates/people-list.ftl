@@ -11,7 +11,16 @@
     <#include "css/bootstrap.min.css">
 
     <#include "css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        });
 
+
+    </script>
 </head>
 <body>
 
@@ -27,19 +36,19 @@
                         <table class="table-users table" border="0">
                             <tbody>
                              <#list likedlist as likedOne>
-                                <tr class="clickable-row" data-href="messages/${likedOne.login}">
-                                <td width="10">
-                                    <!--<h1>${likedOne.name} ${likedOne.surname}</h1>-->
+                                <tr class="clickable-row" data-href="messages/${likedOne.user_id}">
+                                <td width="20">
                                 <div class="avatar-img">
                                 <img class="img-circle small-image" src=${likedOne.photoLink}>  
                                 </div>
                                 </td>
                                 <td class="align-middle">
                                 ${likedOne.name}
+                                 ${likedOne.surname}
                                 </td>
-                                <td class="align-middle">
-                                ${likedOne.surname}
-                                </td>
+                                 <td class="align-middle">
+                                 ${likedOne.job}
+                                 </td>
                                 <td class="align-middle">
                                     Last Login: 6/10/2017<br>
                                     <small class="text-muted">5 days ago</small>

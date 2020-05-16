@@ -13,13 +13,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class UserService {
-    private final TemplateEngine engine;
-    DatabaseConnection db=new DatabaseConnection();
-    Connection con=db.connect();
-    DAO<User> daoUser=new UserDAO(con);
 
-    public UserService(TemplateEngine engine) throws SQLException {
-        this.engine = engine;
+
+    DAO<User> daoUser=new UserDAO();
+
+    public UserService() throws SQLException {
+    }
+    public int getMaxId() {
+        return daoUser.getMaxId();
     }
 
     public List<User> getAllUsers(){

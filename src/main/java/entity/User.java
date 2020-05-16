@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class User  {
 
-
+    private int user_id;
     private String login;
     private String password;
     private String name;
@@ -12,8 +12,13 @@ public class User  {
     private String photoLink;
     private String job;
 
-    public User( String login, String password,String name, String surname,String job, String photoLink) {
-        this(login,password,name,surname,job);
+    public User( int user_id,String login, String password,String name, String surname,String job, String photoLink) {
+        this.user_id=user_id;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.job=job;
         this.photoLink = photoLink;
     }
 
@@ -25,15 +30,9 @@ public class User  {
         this.job = job;
     }
 
-    public User( String login, String password,String name, String surname, String job) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.job=job;
-
+    public int getUser_id() {
+        return user_id;
     }
-
 
     public String getName() {
         return name;

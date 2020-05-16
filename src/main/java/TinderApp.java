@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class TinderApp {
 
     public static void main(String[] args) throws Exception {
-            Server server=new Server(9000);
+            Server server=new Server(8080);
              TemplateEngine engine=new TemplateEngine();
             ServletContextHandler handler=new ServletContextHandler();
             handler.addServlet(new ServletHolder(new LoginServlet()),"/login");
@@ -18,7 +18,7 @@ public class TinderApp {
             handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout");
             handler.addServlet(new ServletHolder(new UserServlet(engine)),"/users");
             handler.addServlet(new ServletHolder(new LikedServlet(engine)),"/liked");
-            handler.addServlet(new ServletHolder(new MessageServlet()),"/messages/*");
+            handler.addServlet(new ServletHolder(new MessageServlet(engine)),"/messages/*");
 
             // filters TODO
 

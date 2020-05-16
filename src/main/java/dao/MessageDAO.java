@@ -1,5 +1,6 @@
 package dao;
 
+import db.DatabaseConnection;
 import entity.Message;
 
 import java.sql.Connection;
@@ -10,13 +11,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class MessageDAO implements DAO<Message> {
-    private Connection con;
+    DatabaseConnection db=new DatabaseConnection();
+    Connection con;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public MessageDAO(Connection con) {
-        this.con = con;
+    public MessageDAO() throws SQLException {
+        this.con = db.connect();
     }
 
     @Override
@@ -30,8 +34,8 @@ public class MessageDAO implements DAO<Message> {
 
             LocalDateTime dateTime = LocalDateTime.parse(rs.getString("time"), formatter);
 
-            msg=new Message(rs.getString("login_from")
-                    , rs.getString("login_to")
+            msg=new Message(rs.getInt("user_id_from")
+                    , rs.getInt("user_id_to")
                     , rs.getString("message")
                     , dateTime);
         } catch (SQLException e) {
@@ -46,18 +50,23 @@ public class MessageDAO implements DAO<Message> {
     }
 
     @Override
+    public List<Message> getAllBy(Predicate<Message> p) {
+        return getAll().stream().filter(p).collect(Collectors.toList());
+    }
+
+    @Override
     public List<Message> getAll() {
         String sql="SELECT * FROM messages ";
         List<Message> messages = new ArrayList<Message>();
         Message msg=null;
         try{
             PreparedStatement ps=con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery(sql);
+            ResultSet rs=ps.executeQuery();
             while(rs.next()){
                 LocalDateTime dateTime = LocalDateTime.parse(rs.getString("time"), formatter);
 
-                msg=new Message(rs.getString("login_from")
-                        , rs.getString("login_to")
+                msg=new Message(rs.getInt("user_id_from")
+                        , rs.getInt("user_id_to")
                         , rs.getString("message")
                         , dateTime);
                 messages.add(msg);
@@ -73,14 +82,14 @@ public class MessageDAO implements DAO<Message> {
     @Override
     public boolean add(Message object) {
         boolean result=false;
-        String sql="INSERT INTO messages (login_from,login_to,message,time) VALUES(?,?,?,?)";
+        String sql="INSERT INTO messages(user_id_from,user_id_to,message,time) VALUES(?,?,?,?)";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setString(1,object.getUserLoginFrom());
-            ps.setString(2,object.getUserLoginTo());
+            ps.setInt(1,object.getUser_id_from());
+            ps.setInt(2,object.getUser_id_to());
             ps.setString(3,object.getMessage());
-            ps.setString(4,object.getTime());
-            ps.executeUpdate();
+            ps.setString(4,object.getTimeString());
+            ps.execute();
             result=true;
 
         } catch (SQLException e) {
