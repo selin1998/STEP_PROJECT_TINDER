@@ -64,5 +64,14 @@ public class DatabaseConnection {
 //
 //        System.out.println(user);
 
+
+        String add3="INSERT INTO likes(user_id_from,user_id_to) VALUES (4, 2)";
+        String add4="INSERT INTO likes(user_id_from,user_id_to) VALUES (4, 3)";
+        PreparedStatement stmt4 = con.prepareStatement(add3);
+        PreparedStatement stmt5 = con.prepareStatement(add4);
+          boolean rset3 = stmt4.execute();
+         boolean rset4 = stmt5.execute();
+
+
     }
 }

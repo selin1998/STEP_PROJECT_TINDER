@@ -1,29 +1,33 @@
 package service;
 
+import dao.DAO;
+import dao.LikesDAO;
 import dao.UserDAO;
+import db.DatabaseConnection;
+import entity.Like;
 import entity.User;
+import util.TemplateEngine;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 public class UserService {
-    private UserDAO userDao;
 
-    public UserService(UserDAO userDao) {
-        this.userDao = userDao;
+
+    DAO<User> daoUser=new UserDAO();
+
+    public UserService() throws SQLException {
+    }
+    public int getMaxId() {
+        return daoUser.getMaxId();
     }
 
-
-    public int getUserId(String login,String password) {
-        return userDao.getUserId(login,password);
+    public List<User> getAllUsers(){
+       return daoUser.getAll();
     }
 
-    public User getByLoginAndPassword(String login, String password) {
-        return userDao.getByLoginAndPassword(login,password);
+    public User getById(int id){
+        return daoUser.get(id);
     }
-
-    public boolean checkUser(User user){
-        User result = userDao.getByLoginAndPassword(user.getLogin(),user.getPassword());
-        return result != null && result.getPassword().equals(user.getPassword());  //&& result.getLogin().equals(user.getLogin());
-    }
-
-
-
 }

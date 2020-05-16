@@ -1,5 +1,6 @@
 package dao;
 
+import db.DatabaseConnection;
 import entity.Like;
 
 import java.sql.Connection;
@@ -8,14 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class LikesDAO implements DAO<Like> {
+    DatabaseConnection db=new DatabaseConnection();
+    Connection con;
 
-    private Connection con;
 
-
-    public LikesDAO(Connection con) {
-        this.con = con;
+    public LikesDAO() throws SQLException {
+        this.con = db.connect();
     }
 
     @Override
@@ -27,8 +30,8 @@ public class LikesDAO implements DAO<Like> {
             ps.setInt(1,id);
             ResultSet rs=ps.executeQuery();
 
-            like=new Like(rs.getString("login_from")
-                    , rs.getString("login_to"));
+            like=new Like(rs.getInt("user_id_from")
+                    , rs.getInt("user_id_to"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -36,40 +39,45 @@ public class LikesDAO implements DAO<Like> {
     }
 
     @Override
-    public int getMaxId(int id) {
+    public int getMaxId() {
         return 0;
+    }
+
+    @Override
+    public List<Like> getAllBy(Predicate<Like> p) {
+        return getAll().stream().filter(p).collect(Collectors.toList());
     }
 
     @Override
     public List<Like> getAll() {
         String sql="SELECT * FROM likes ";
-        List<Like> messages = new ArrayList<>();
+        List<Like> likes = new ArrayList<>();
         Like like=null;
         try{
             PreparedStatement ps=con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery(sql);
+            ResultSet rs=ps.executeQuery();
             while(rs.next()){
-                like=new Like(rs.getString("login_from")
-                        , rs.getString("login_to"));
-                messages.add(like);
+                like=new Like(rs.getInt("user_id_from")
+                        , rs.getInt("user_id_to"));
+                likes.add(like);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return messages;
+        return likes;
     }
 
     @Override
     public boolean add(Like object) {
         boolean result=false;
-        String sql="INSERT INTO likes(login_from,login_to) VALUES(?,?)";
+        String sql="INSERT INTO likes(user_id_from,user_id_to) VALUES(?,?)";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setString(1,object.getLogin_from());
-            ps.setString(2,object.getLogin_to());
-            ps.executeUpdate();
+            ps.setInt(1,object.getUser_id_from());
+            ps.setInt(2,object.getUser_id_to());
+            ps.execute();
             result=true;
 
         } catch (SQLException e) {
