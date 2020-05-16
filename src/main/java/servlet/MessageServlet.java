@@ -1,5 +1,6 @@
 package servlet;
 
+import dao.UserDAO;
 import entity.Message;
 import entity.User;
 import service.MessageService;
@@ -18,8 +19,9 @@ import java.util.List;
 
 public class MessageServlet extends HttpServlet {
     private final TemplateEngine engine;
+    UserDAO userDao=new UserDAO();
     MessageService mservice=new MessageService();
-    UserService uservice=new UserService();
+    UserService uservice=new UserService(userDao);
     int currentUserId=7;
 
     public MessageServlet(TemplateEngine engine) throws SQLException {

@@ -24,8 +24,8 @@ public class TinderApp {
         handler.addServlet(new ServletHolder(new RegisterServlet()), "/login/signup");
         handler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
         handler.addServlet(new ServletHolder(new UserServlet(engine)), "/users");
-        handler.addServlet(new ServletHolder(new LikedServlet()), "/liked");
-        handler.addServlet(new ServletHolder(new MessageServlet()), "/messages/*");
+        handler.addServlet(new ServletHolder(new LikedServlet(engine)), "/liked");
+        handler.addServlet(new ServletHolder(new MessageServlet(engine)), "/messages/*");
 
         handler.addServlet(new ServletHolder(new LoginServlet(engine)), "/login/*");
 

@@ -21,7 +21,8 @@ import java.util.HashMap;
 
 public class UserServlet extends HttpServlet {
     private final TemplateEngine engine;
-    UserService serviceUser=new UserService();
+    private UserDAO userDAO=new UserDAO();
+    UserService serviceUser=new UserService(userDAO);
     LikesService serviceLike=new LikesService();
     int id=1;
     int currentUserId=7;

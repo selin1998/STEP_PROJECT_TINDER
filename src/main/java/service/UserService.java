@@ -15,10 +15,12 @@ import java.util.List;
 public class UserService {
 
 
-    DAO<User> daoUser=new UserDAO();
+   private UserDAO daoUser=new UserDAO();
 
-    public UserService() throws SQLException {
+    public UserService(UserDAO daoUser) throws SQLException {
+        this.daoUser=daoUser;
     }
+
     public int getMaxId() {
         return daoUser.getMaxId();
     }
@@ -30,4 +32,14 @@ public class UserService {
     public User getById(int id){
         return daoUser.get(id);
     }
+
+    public boolean checkUser(String login,String password){
+        User result = daoUser.getByLoginAndPassword(login,password);
+        return result != null && result.getPassword().equals(password) && result.getLogin().equals(login);
+    }
+
+    public int getUserId(String login,String password) {
+       return daoUser.getUserId(login, password);
+    }
+
 }

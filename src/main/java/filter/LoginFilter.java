@@ -18,20 +18,21 @@ import java.util.HashMap;
 public class LoginFilter implements Filter {
 
     private TemplateEngine engine = new TemplateEngine();
-    private DatabaseConnection db=new DatabaseConnection();
-    private Connection con=db.connect();
-    private UserDAO daoUser=new UserDAO(con);
+    private UserDAO daoUser=new UserDAO();
     private UserService usersService=new UserService(daoUser);
 
     public LoginFilter(TemplateEngine engine) throws IOException, SQLException {
         this.engine=engine;
     }
 
-
+    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req;
         if (request instanceof HttpServletRequest) {
@@ -46,15 +47,13 @@ public class LoginFilter implements Filter {
             try {
                 String login = req.getParameter("Email");
                 String password = req.getParameter("Password");
-                User user = new User(login, password);
 
-                if (!usersService.checkUser(user)) {
+                if (!usersService.checkUser(login,password)) {
                     throw new Exception("Incorrect login or password");
                 }
                 chain.doFilter(request, response);
             } catch (Exception e) {
                 data.put("message", e.getMessage());
-//                data.put("rout","/login");
                 engine.render("error_message.ftl", data,(HttpServletResponse) response);
             }
         } else {
@@ -63,6 +62,7 @@ public class LoginFilter implements Filter {
 
     }
 
+    @Override
     public void destroy() {
 
     }

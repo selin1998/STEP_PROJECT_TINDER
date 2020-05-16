@@ -21,9 +21,7 @@ import java.util.List;
 
 public class LoginServlet extends HttpServlet {
     private final TemplateEngine engine;
-    private DatabaseConnection db=new DatabaseConnection();
-    private Connection con=db.connect();
-    private UserDAO daoUser=new UserDAO(con);
+    private UserDAO daoUser=new UserDAO();
     private UserService usersService=new UserService(daoUser);
     private CookiesService cookiesService;
 
