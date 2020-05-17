@@ -31,7 +31,7 @@
     <input type="text" id="inputSurname" class="form-control" name="Surname" placeholder="Surname" required>
 
     <label for="photoLink" class="sr-only">Photo Link</label>
-    <input type="text" id="photoLink" class="form-control" name="photoLink" placeholder="Photo Link" required>
+    <input type="text" id="photoLink" class="form-control" name="photolink" placeholder="Photo Link" required>
 
     <label for="inputJob" class="sr-only">Job</label>
     <input type="text" id="inputJob" class="form-control" placeholder="Job or position"  name="Job" required>

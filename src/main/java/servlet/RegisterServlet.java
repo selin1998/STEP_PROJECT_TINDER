@@ -29,7 +29,7 @@ public class RegisterServlet extends HttpServlet {
         HashMap<String, Object> data = new HashMap<>();
         data.put("Name", "Name");
         data.put("Surname", "Surname");
-        data.put("photoLink", "photoLink");
+        data.put("photoLink", "photolink");
         data.put("Job", "Job");
         data.put("Email", "Email");
         data.put("Password", "Password");
@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("Name");
         String surname = req.getParameter("Surname");
-        String photoLink = req.getParameter("photoLink");
+        String photoLink = req.getParameter("photolink");
         String job = req.getParameter("Job");
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
@@ -56,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
         if (result == true) {
             cookiesService.addCookie(userService.getUserId(login, password));
         } else {
-            new SQLException("Something wrong.User cannot added!");
+            new SQLException("Something wrong.User can not be added!");
         }
 
         resp.sendRedirect("/users");

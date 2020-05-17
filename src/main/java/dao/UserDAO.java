@@ -36,7 +36,7 @@ public class UserDAO implements DAO<User> {
                         , rs.getString("name")
                         , rs.getString("surname")
                         , rs.getString("job")
-                        , rs.getString("photoLink"));
+                        , rs.getString("photolink"));
             }
 
         } catch (SQLException e) {
@@ -165,7 +165,7 @@ public class UserDAO implements DAO<User> {
     @Override
     public boolean add(User user) {
         boolean result=false;
-        String sql="INSERT INTO users (login,password,name,surname,job,photoLink) VALUES(?,?,?,?,?,?)";
+        String sql="INSERT INTO users (login,password,name,surname,job,photolink) VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setString(1,user.getLogin());
