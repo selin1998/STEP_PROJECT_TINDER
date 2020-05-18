@@ -4,7 +4,7 @@ package filter;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class AuthFilter implements Filter {
+public class RegisterFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

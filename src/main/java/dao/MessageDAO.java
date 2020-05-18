@@ -44,10 +44,7 @@ public class MessageDAO implements DAO<Message> {
         return msg;
     }
 
-    @Override
-    public int getMaxId() {
-        return 0;
-    }
+
 
     @Override
     public List<Message> getAllBy(Predicate<Message> p) {
@@ -99,12 +96,12 @@ public class MessageDAO implements DAO<Message> {
     }
 
     @Override
-    public boolean remove(int id) {
+    public boolean remove(Message message) {
         String sql="DELETE FROM messages WHERE message_id=?";
         boolean result=false;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1,message.getUser_id_to());
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {

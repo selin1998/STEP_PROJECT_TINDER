@@ -13,7 +13,12 @@ public class User  {
     private String job;
 
     public User( int user_id,String login, String password,String name, String surname,String job, String photoLink) {
+
+        this(login,password,name,surname,job,photoLink);
         this.user_id=user_id;
+    }
+
+    public User( String login, String password,String name, String surname,String job, String photoLink) {
         this.name = name;
         this.surname = surname;
         this.login = login;

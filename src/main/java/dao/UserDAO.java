@@ -45,21 +45,6 @@ public class UserDAO implements DAO<User> {
         return user;
     }
 
-    public int getMaxId(){
-        String sql="select user_id from users  order by user_id  desc limit 1";
-        int result=0;
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                result = rs.getInt("user_id");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
     @Override
     public List<User> getAllBy(Predicate<User> p) {
@@ -114,12 +99,12 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public boolean remove(int id) {
+    public boolean remove(User user) {
         String sql="DELETE FROM users WHERE user_id=?";
         boolean result=false;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1,user.getUser_id());
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {

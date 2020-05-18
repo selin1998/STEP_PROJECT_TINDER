@@ -1,11 +1,7 @@
 package servlet;
-
-import dao.DAO;
-import dao.LikesDAO;
-import dao.UserDAO;
-import db.DatabaseConnection;
 import entity.Like;
 import entity.User;
+import service.CookiesService;
 import service.LikesService;
 import service.UserService;
 import util.TemplateEngine;
@@ -15,25 +11,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 public class UserServlet extends HttpServlet {
     private final TemplateEngine engine;
     UserService serviceUser=new UserService();
     LikesService serviceLike=new LikesService();
-    int id=1;
-    int currentUserId=7;
-
+    CookiesService cookiesService;
+    int loggedUserId;
+    List<Integer> allUserIds;
+    int i=0;
     public UserServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        cookiesService=new CookiesService(req,resp);
+
+        try {
+            loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        allUserIds = serviceUser.getAllUserIds(loggedUserId);
         HashMap<String, Object> data = new HashMap<>();
-        User user=serviceUser.getById(id);
+        User user=serviceUser.getById(allUserIds.get(i));
         data.put("user",user);
         engine.render("like-page.ftl",data,resp);
 
@@ -42,12 +48,15 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean isThereClick=(req.getParameter("like")!=null ||req.getParameter("dislike")!=null);
-
+        int userIdOfImage=allUserIds.get(i);
         if(req.getParameter("like")!=null){
-            serviceLike.add(new Like(currentUserId,id));
+            serviceLike.add(new Like(loggedUserId,userIdOfImage));
         }
-        if( isThereClick && id<serviceUser.getMaxId() ){
-            id++;
+        if(req.getParameter("dislike")!=null){
+            serviceLike.remove(loggedUserId,userIdOfImage);
+        }
+        if( isThereClick && userIdOfImage<=allUserIds.size() ){
+            i++;
             doGet(req,resp);
         }
         else{

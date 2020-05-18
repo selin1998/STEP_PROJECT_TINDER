@@ -38,10 +38,7 @@ public class LikesDAO implements DAO<Like> {
         return like;
     }
 
-    @Override
-    public int getMaxId() {
-        return 0;
-    }
+
 
     @Override
     public List<Like> getAllBy(Predicate<Like> p) {
@@ -72,7 +69,7 @@ public class LikesDAO implements DAO<Like> {
     @Override
     public boolean add(Like object) {
         boolean result=false;
-        String sql="INSERT INTO likes(user_id_from,user_id_to) VALUES(?,?)";
+        String sql= "INSERT INTO likes(user_id_from,user_id_to) VALUES(?,?)";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setInt(1,object.getUser_id_from());
@@ -87,12 +84,13 @@ public class LikesDAO implements DAO<Like> {
     }
 
     @Override
-    public boolean remove(int id) {
-        String sql="DELETE FROM likes WHERE like_id=?";
+    public boolean remove(Like like) {
+        String sql="DELETE FROM likes WHERE user_id_from=? AND user_id_to=?";
         boolean result=false;
         try {
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1,like.getUser_id_from());
+            ps.setInt(2,like.getUser_id_to());
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {

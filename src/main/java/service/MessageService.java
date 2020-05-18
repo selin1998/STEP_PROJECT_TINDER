@@ -31,8 +31,6 @@ public class MessageService {
         daoMsg.add(msg);
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(getMessagesForCurrentChat(7, 6));
-//    }
+
 
 }
