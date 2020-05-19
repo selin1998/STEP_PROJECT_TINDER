@@ -14,5 +14,6 @@ public class LogoutServlet extends HttpServlet {
         CookiesService cookiesService= new CookiesService(req, resp);
         cookiesService.removeCookie();
         resp.sendRedirect("/login");
+
     }
 }

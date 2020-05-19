@@ -5,9 +5,9 @@ import entity.User;
 import java.sql.*;
 
 public class DatabaseConnection {
-    private final static String URL = "jdbc:postgresql://ec2-79-125-26-232.eu-west-1.compute.amazonaws.com:5432/d4cjshekp7j059";
-    private final static String NAME = "mxbergrqugafkk";
-    private final static String PWD = "0cf9535daf6724b3aecc2f5a215cb27f099e4e350fc7e5f918a5775801d35707";
+    protected final static String URL = "jdbc:postgresql://ec2-79-125-26-232.eu-west-1.compute.amazonaws.com:5432/d4cjshekp7j059";
+    protected final static String NAME = "mxbergrqugafkk";
+    protected final static String PWD = "0cf9535daf6724b3aecc2f5a215cb27f099e4e350fc7e5f918a5775801d35707";
 
     private Connection connection = null;
 

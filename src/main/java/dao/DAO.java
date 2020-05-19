@@ -8,5 +8,5 @@ public interface DAO<T> {
     List<T> getAllBy(Predicate<T> p);
     List<T> getAll();
     boolean add(T object);
-    boolean remove(T param);
+    boolean remove(T object);
 }
