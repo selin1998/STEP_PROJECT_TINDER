@@ -20,7 +20,7 @@ public class TinderApp {
             Server server=new Server(HerokuEnv.port());
             TemplateEngine engine=new TemplateEngine();
             ServletContextHandler handler=new ServletContextHandler();
-            handler.addServlet(new ServletHolder(new MainPageServlet()),"/");
+         //   handler.addServlet(new ServletHolder(new MainPageServlet()),"/");
             handler.addServlet(new ServletHolder(new LoginServlet(engine)),"/login");
             handler.addServlet(new ServletHolder(new RegisterServlet(engine)),"/signup");
             handler.addServlet(new ServletHolder(new LogoutServlet()),"/logout");
