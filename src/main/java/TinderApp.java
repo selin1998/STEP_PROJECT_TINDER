@@ -17,7 +17,7 @@ public class TinderApp {
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-            Server server=new Server(9000);
+            Server server=new Server(HerokuEnv.port());
             TemplateEngine engine=new TemplateEngine();
             ServletContextHandler handler=new ServletContextHandler();
             handler.addServlet(new ServletHolder(new MainPageServlet()),"/");
