@@ -1,3 +1,4 @@
+import filter.HttpFilter;
 import filter.LoginFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
@@ -17,7 +18,7 @@ public class TinderApp {
 
     public static void main(String[] args) throws Exception {
             Server server=new Server(9000);
-             TemplateEngine engine=new TemplateEngine();
+            TemplateEngine engine=new TemplateEngine();
             ServletContextHandler handler=new ServletContextHandler();
             handler.addServlet(new ServletHolder(new MainPageServlet()),"/");
             handler.addServlet(new ServletHolder(new LoginServlet(engine)),"/login");
@@ -27,7 +28,9 @@ public class TinderApp {
             handler.addServlet(new ServletHolder(new LikedServlet(engine)),"/liked");
             handler.addServlet(new ServletHolder(new MessageServlet(engine)),"/messages/*");
             handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login/*", ft);
-            // filters TODO
+            handler.addFilter(HttpFilter.class,"/users",ft);
+            handler.addFilter(HttpFilter.class,"/liked",ft);
+            handler.addFilter(HttpFilter.class,"/messages/*",ft);
 
 
             server.setHandler(handler);

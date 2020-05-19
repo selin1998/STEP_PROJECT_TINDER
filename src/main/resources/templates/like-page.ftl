@@ -16,6 +16,11 @@
 
 <div class="col-4 offset-4">
     <form class="form-users" action="/users" method="post">
+        <div class="mt-4">
+            <div class="d-flex justify-content-center links">
+                <a href="/logout" class="ml-2">Logout</a>
+            </div>
+        </div>
     <div class="card">
         <div class="card-body">
             <div class="row">

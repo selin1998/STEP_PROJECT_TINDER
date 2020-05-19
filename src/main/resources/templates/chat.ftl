@@ -16,10 +16,16 @@
 <body>
 
 <div class="container">
+    <div class="mt-4">
+        <div class="d-flex justify-content-center links">
+            <a href="/logout" class="ml-2">Logout</a>
+        </div>
+    </div>
     <div class="row">
         <div class="chat-main col-6 offset-3">
             <div class="col-md-12 chat-header">
                 <div class="row header-one text-white p-1">
+
                     <div class="col-md-6 name pl-2">
                         <i class="fa fa-comment"></i>
                         <h6 class="ml-1 mb-0">${targetUser.name} ${targetUser.surname}</h6>

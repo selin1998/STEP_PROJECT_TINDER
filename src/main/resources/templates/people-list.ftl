@@ -27,10 +27,16 @@
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    <a href="/logout" class="ml-2">Logout</a>
+                </div>
+            </div>
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">User List</h3>
                 </div>
+
                 <div class="panel-body">
                     <div class="table-container">
                         <table class="table-users table" border="0">

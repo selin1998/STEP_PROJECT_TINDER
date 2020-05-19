@@ -3,7 +3,7 @@ package db;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 
-public class DBSetup {
+public class DbSetup {
 
     static void migrate(String path, String user, String password) {
         migrate(path, user, password, false);

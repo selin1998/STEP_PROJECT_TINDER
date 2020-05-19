@@ -60,7 +60,9 @@ public class UserServlet extends HttpServlet {
             doGet(req,resp);
         }
         else{
+            i=0;
             resp.sendRedirect("/liked");
+
         }
 
     }
