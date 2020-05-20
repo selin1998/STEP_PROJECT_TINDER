@@ -50,7 +50,11 @@ public class UserServlet extends HttpServlet {
         boolean isThereClick=(req.getParameter("like")!=null ||req.getParameter("dislike")!=null);
         int userIdOfImage=allUserIds.get(i);
         if(req.getParameter("like")!=null){
-            serviceLike.add(new Like(loggedUserId,userIdOfImage));
+            try {
+                serviceLike.add(new Like(loggedUserId,userIdOfImage));
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         if(req.getParameter("dislike")!=null){
             serviceLike.remove(loggedUserId,userIdOfImage);

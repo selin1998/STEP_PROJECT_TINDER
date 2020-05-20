@@ -34,7 +34,7 @@ public class UserService {
        return getByLoginAndPassword(login,password).getUser_id();
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(User user)  {
         return daoUser.add(user);
     }
 

@@ -34,7 +34,7 @@ public class LikesService {
 
     }
 
-    public void add(Like like){
+    public void add(Like like) throws SQLException {
 
         if(doesLikeExist(like.getUser_id_from(),like.getUser_id_to())) daoLike.add(like);
     }

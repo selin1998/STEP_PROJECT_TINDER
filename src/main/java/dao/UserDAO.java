@@ -78,17 +78,48 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public boolean add(User user) {
+    public boolean add(User user)  {
         boolean result=false;
-        String sql="INSERT INTO users (login,password,name,surname,job,photoLink) VALUES(?,?,?,?,?,?)";
+        String sql="INSERT INTO users (login,password,name,surname,job,photoLink,user_id) VALUES(?,?,?,?,?,?,?)";
+        String sql2="SELECT MAX(user_id) from users ";
+
+        PreparedStatement ps2= null;
+        try {
+            ps2 = con.prepareStatement(sql2);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        ResultSet rs= null;
+        try {
+            rs = ps2.executeQuery();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        int max=0;
+            while(true){
+                try {
+                    if (!rs.next()) break;
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                try {
+                    max=rs.getInt("max")+1;
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+
+
         try {
             PreparedStatement ps=con.prepareStatement(sql);
+
             ps.setString(1,user.getLogin());
             ps.setString(2,user.getPassword());
             ps.setString(3,user.getName());
             ps.setString(4,user.getSurname());
             ps.setString(5,user.getJob());
             ps.setString(6,user.getPhotoLink());
+            ps.setInt(7,max);
             ps.executeUpdate();
             result=true;
 
@@ -96,9 +127,11 @@ public class UserDAO implements DAO<User> {
             e.printStackTrace();
         }
         return result;
+
+
     }
 
-    @Override
+        @Override
     public boolean remove(User user) {
         String sql="DELETE FROM users WHERE user_id=?";
         boolean result=false;

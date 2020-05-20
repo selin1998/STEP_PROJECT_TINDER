@@ -54,7 +54,11 @@ public class MessageServlet extends HttpServlet {
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
         LocalDateTime time=LocalDateTime.now();
-        mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
+        try {
+            mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         doGet(req,resp);
 
     }
