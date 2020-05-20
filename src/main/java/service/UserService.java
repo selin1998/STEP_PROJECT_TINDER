@@ -5,6 +5,7 @@ import entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserService {
 
@@ -21,6 +22,11 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return daoUser.getAll();
+    }
+
+    public List<Integer> getAllUserIds(int loggeduserId){
+
+        return daoUser.getAll().stream().map(u->u.getUser_id()).filter(f->f!=loggeduserId).collect(Collectors.toList());
     }
 
     public User getById(int id) {

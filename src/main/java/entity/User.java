@@ -27,14 +27,6 @@ public class User  {
         this.photoLink = photoLink;
     }
 
-    public User(String login, String password, String name, String surname, String photoLink, String job) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.photoLink = photoLink;
-        this.job = job;
-    }
 
     public User(String login, String password) {
         this.login = login;

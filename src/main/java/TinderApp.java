@@ -1,3 +1,4 @@
+import filter.HttpFilter;
 import filter.LoginFilter;
 import filter.RegisterFilter;
 import org.eclipse.jetty.server.Server;
@@ -36,6 +37,9 @@ public class TinderApp {
         // filters
         handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login/*", ft);
         handler.addFilter(new FilterHolder(new RegisterFilter(engine)), "/signup/*", ft);
+        handler.addFilter(HttpFilter.class,"/users",ft);
+        handler.addFilter(HttpFilter.class,"/liked",ft);
+        handler.addFilter(HttpFilter.class,"/messages/*",ft);
 
 
 

@@ -185,7 +185,12 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public boolean remove(int id) {
+    public boolean remove(User object) {
+        return false;
+    }
+
+
+    public boolean removeById(int id) {
         String sql="DELETE FROM users WHERE user_id=?";
         boolean result=false;
         try {

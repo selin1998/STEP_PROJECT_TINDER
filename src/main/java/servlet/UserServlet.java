@@ -1,4 +1,5 @@
 package servlet;
+import dao.UserDAO;
 import entity.Like;
 import entity.User;
 import service.CookiesService;
