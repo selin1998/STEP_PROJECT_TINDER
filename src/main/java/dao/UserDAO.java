@@ -18,7 +18,7 @@ public class UserDAO implements DAO<User> {
 
     public UserDAO() throws SQLException {
 
-        this.con = db.connect();
+        this.con = db.connection();
     }
 
     @Override

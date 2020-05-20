@@ -20,7 +20,7 @@ public class MessageDAO implements DAO<Message> {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public MessageDAO() throws SQLException {
-        this.con = db.connect();
+        this.con = db.connection();
     }
 
     @Override
