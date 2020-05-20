@@ -59,7 +59,7 @@ public class UserServlet extends HttpServlet {
         if(req.getParameter("dislike")!=null){
             serviceLike.remove(loggedUserId,userIdOfImage);
         }
-        if( isThereClick && userIdOfImage<=allUserIds.size() ){
+        if( isThereClick && userIdOfImage<allUserIds.size() ){
             i++;
             doGet(req,resp);
         }
