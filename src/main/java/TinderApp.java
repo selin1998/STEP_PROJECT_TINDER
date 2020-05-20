@@ -6,12 +6,11 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlet.*;
 import util.TemplateEngine;
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
+
 
 public class TinderApp {
 
-    private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
+
 
     public static void main(String[] args) throws Exception {
             Server server=new Server(HerokuEnv.port());
@@ -24,10 +23,10 @@ public class TinderApp {
             handler.addServlet(new ServletHolder(new UserServlet(engine)),"/users");
             handler.addServlet(new ServletHolder(new LikedServlet(engine)),"/liked");
             handler.addServlet(new ServletHolder(new MessageServlet(engine)),"/messages/*");
-            handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login/*", ft);
-            handler.addFilter(HttpFilter.class,"/users",ft);
-           handler.addFilter(HttpFilter.class,"/liked",ft);
-           handler.addFilter(HttpFilter.class,"/messages/*",ft);
+//            handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login/*", ft);
+//            handler.addFilter(HttpFilter.class,"/users",ft);
+//           handler.addFilter(HttpFilter.class,"/liked",ft);
+//           handler.addFilter(HttpFilter.class,"/messages/*",ft);
 
 
             server.setHandler(handler);
