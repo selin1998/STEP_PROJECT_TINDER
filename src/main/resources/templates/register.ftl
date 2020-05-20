@@ -6,19 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="icon" href="img/favicon.ico">
 
     <title>Sign up</title>
 
-    <!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
-    <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
+<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+<!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
 
-    <!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="css/style.css">-->
+<!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
 
 
-    <#include "css/bootstrap.min.css">
-    <#include "css/style.css">
+    <#include "newCss/bootstrap.min.css">
+    <#include "newCss/style.css">
 </head>
 
 <body class="text-center">
@@ -40,8 +40,8 @@
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="Email" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="Password" required>
-    <#--    <label for="repeat_Password" class="sr-only">Repeat Password</label>-->
-    <#--    <input type="password" id="repeatPassword" class="form-control" placeholder="Repeat Password" name="RepeatPassword" required>-->
+<#--    <label for="repeat_Password" class="sr-only">Repeat Password</label>-->
+<#--    <input type="password" id="repeatPassword" class="form-control" placeholder="Repeat Password" name="RepeatPassword" required>-->
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     <p class="mt-5 mb-3 text-muted">&copy; Tinder 2020</p>
 </form>

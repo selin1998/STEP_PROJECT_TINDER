@@ -2,6 +2,7 @@ package service;
 
 import dao.DAO;
 import dao.LikesDAO;
+import dao.UserDAO;
 import db.DatabaseConnection;
 import entity.Like;
 import entity.User;
@@ -16,13 +17,13 @@ import java.util.stream.Collectors;
 
 public class LikesService {
 
-
+    UserDAO userDAO=new UserDAO();
     DAO<Like> daoLike=new LikesDAO();
     UserService service;
 
     public LikesService() throws SQLException {
 
-        service=new UserService();
+        service=new UserService(userDAO);
     }
 
     public List<User> getAllLikedUsers(int user_id_from){

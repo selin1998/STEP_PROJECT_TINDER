@@ -29,6 +29,10 @@ public class TemplateEngine {
     return new TemplateEngine();
   }
 
+    public void render(String templateFile, HttpServletResponse resp) throws IOException {
+        render(templateFile, new HashMap<>(), resp);
+    }
+
   public void render(String templateFile, HashMap<String, Object> data, HttpServletResponse resp) {
 //    BufferedWriter bw = new BufferedWriter(new FileWriter(new File("")));
     resp.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));

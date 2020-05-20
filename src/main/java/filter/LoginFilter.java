@@ -18,8 +18,8 @@ import java.util.HashMap;
 public class LoginFilter implements Filter {
 
     private TemplateEngine engine = new TemplateEngine();
-
-    private UserService usersService=new UserService();
+    private UserDAO daoUser=new UserDAO();
+    private UserService usersService=new UserService(daoUser);
 
     public LoginFilter(TemplateEngine engine) throws IOException, SQLException {
         this.engine=engine;

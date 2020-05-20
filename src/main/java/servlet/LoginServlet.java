@@ -1,4 +1,9 @@
 package servlet;
+
+import dao.DAO;
+import dao.UserDAO;
+import db.DatabaseConnection;
+import entity.User;
 import service.CookiesService;
 import service.UserService;
 import util.TemplateEngine;
@@ -16,7 +21,8 @@ import java.util.List;
 
 public class LoginServlet extends HttpServlet {
     private final TemplateEngine engine;
-    private UserService usersService=new UserService();
+    private UserDAO daoUser=new UserDAO();
+    private UserService usersService=new UserService(daoUser);
     private CookiesService cookiesService;
 
     public LoginServlet(TemplateEngine engine) throws SQLException {
@@ -25,11 +31,14 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+//        List<String> fields = new ArrayList<>();
+//        fields.add("Email");
 
         HashMap<String, Object> data = new HashMap<>();
+//        data.put("fields", fields);
         data.put("Email","Email");
         data.put("message", "Please sign in");
+//        data.put("root", "/login");
         engine.render("login.ftl", data, resp);
     }
 
@@ -37,6 +46,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
+
+//        for add cookie
+//        User user=new User(login,password);
        cookiesService = new CookiesService(req, resp);
        cookiesService.addCookie(usersService.getUserId(login,password));
 

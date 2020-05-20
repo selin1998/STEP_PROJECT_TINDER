@@ -5,6 +5,8 @@ import entity.User;
 import service.CookiesService;
 import service.UserService;
 import util.TemplateEngine;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,8 @@ import java.util.HashMap;
 
 public class RegisterServlet extends HttpServlet {
     private TemplateEngine engine;
-    private UserService userService = new UserService();
+    private UserDAO daoUser = new UserDAO();
+    private UserService userService = new UserService(daoUser);
 
     public RegisterServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
@@ -22,7 +25,7 @@ public class RegisterServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HashMap<String, Object> data = new HashMap<>();
         data.put("Name", "Name");
         data.put("Surname", "Surname");
@@ -30,6 +33,7 @@ public class RegisterServlet extends HttpServlet {
         data.put("Job", "Job");
         data.put("Email", "Email");
         data.put("Password", "Password");
+//        data.put("RepeatPassword","RepeatPassword");
         data.put("message", "Please sign in");
 
         engine.render("register.ftl", data, resp);
@@ -37,7 +41,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("Name");
         String surname = req.getParameter("Surname");
         String photoLink = req.getParameter("photolink");
@@ -45,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
 
-        User user = new User(login, password, name, surname,job,photoLink);
+        User user = new User(login, password, name, surname, photoLink, job);
         boolean result = userService.addUser(user);
 
         CookiesService cookiesService = new CookiesService(req, resp);

@@ -4,7 +4,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Optional;
 
 public class CookiesService {
 
@@ -43,16 +42,6 @@ public class CookiesService {
                     setMaxAge(0);
                 }})
                 .forEach(resp::addCookie);
-    }
-
-    public Optional<Integer> getCookieValue(){
-        Cookie[] cookies = req.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals(COOKIE_NAME)){
-                return Optional.of(Integer.parseInt(cookie.getValue()));
-            }
-        }
-        return Optional.empty();
     }
 
 
