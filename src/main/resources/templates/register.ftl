@@ -10,13 +10,6 @@
 
     <title>Sign up</title>
 
-    <!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
-    <!--    <link href="css/bootstrap.min.css" rel="stylesheet">-->
-
-    <!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-    <!--    <link rel="stylesheet" href="css/style.css">-->
-
-
     <#include "css/bootstrap.min.css">
     <#include "css/style.css">
 </head>

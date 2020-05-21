@@ -44,8 +44,9 @@ public class RegisterFilter implements Filter {
 //                String job = req.getParameter("Job");
                 String login = req.getParameter("Email");
                 String password = req.getParameter("Password");
+                User user=new User(login,password);
 
-                if (usersService.checkUserByLogin(login, password)) {
+                if (usersService.checkUserByLogin(user)) {
                     throw new Exception("Such user already exist! Please check your info.");
                 }
 

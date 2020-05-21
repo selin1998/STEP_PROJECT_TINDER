@@ -1,6 +1,7 @@
 package org.tinder.step.filter;
 
 import org.eclipse.jetty.http.HttpMethod;
+import org.tinder.step.entity.User;
 import org.tinder.step.service.UserService;
 import org.tinder.step.util.TemplateEngine;
 
@@ -44,7 +45,9 @@ public class LoginFilter implements Filter {
                 String login = req.getParameter("Email");
                 String password = req.getParameter("Password");
 
-                if (!usersService.checkUser(login,password)) {
+                User user=new User(login,password);
+
+                if (!usersService.checkUser(user)) {
                     throw new Exception("Incorrect login or password");
                 }
                 chain.doFilter(request, response);
