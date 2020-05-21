@@ -39,8 +39,23 @@ create table activity
     logout_time varchar
 );
 
+-- create table activity
+-- (
+--     user_id     integer                  not null
+--         constraint activity_pk
+--             primary key,
+--     logout_time timestamp with time zone not null
+-- );
+
 
 create unique index activity_user_id_uindex
     on activity (user_id);
+
+
+
+    alter table activity
+	add constraint activity_user_user_id_fk
+		foreign key (user_id) references "user" (user_id);
+
 
 
