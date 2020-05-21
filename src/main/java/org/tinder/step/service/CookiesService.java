@@ -17,25 +17,21 @@ public class CookiesService {
         this.resp = resp;
     }
 
-    public Cookie getCookie(){
-        Cookie result = null;
+    public Optional<Integer> getCookieValue() {
         Cookie[] cookies = req.getCookies();
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie c : cookies) {
-                if (c.getName().equals(COOKIE_NAME)) {
-                    result = c;
-                }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(COOKIE_NAME)) {
+                return Optional.of(Integer.parseInt(cookie.getValue()));
             }
         }
-
-        return result;
+        return Optional.empty();
     }
 
-    public void addCookie(int id){
+    public void addCookie(int id) {
         resp.addCookie(new Cookie(COOKIE_NAME, String.valueOf(id)));
     }
 
-    public void removeCookie(){
+    public void removeCookie() {
         Arrays
                 .stream(req.getCookies())
                 .filter(c -> c.getName().equalsIgnoreCase(COOKIE_NAME))
@@ -45,14 +41,17 @@ public class CookiesService {
                 .forEach(resp::addCookie);
     }
 
-    public Optional<Integer> getCookieValue(){
+    public Cookie getCookie() {
+        Cookie result = null;
         Cookie[] cookies = req.getCookies();
-        for (Cookie cookie : cookies) {
-            if(cookie.getName().equals(COOKIE_NAME)){
-                return Optional.of(Integer.parseInt(cookie.getValue()));
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals(COOKIE_NAME)) {
+                    result = c;
+                }
             }
         }
-        return Optional.empty();
+        return result;
     }
 
 
