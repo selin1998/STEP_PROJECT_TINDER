@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public class Activity {
     private int user_id;
-    private String logout_time;
-//    private ZonedDateTime logout_time;
+//    private String logout_time;
+    private ZonedDateTime logout_time;
 
-    public Activity(int user_id, String logout_time) {
+    public Activity(int user_id, ZonedDateTime logout_time) {
         this.user_id = user_id;
         this.logout_time = logout_time;
     }
@@ -17,7 +17,7 @@ public class Activity {
         return user_id;
     }
 
-    public String getLogout_time() {
+    public ZonedDateTime getLogout_time() {
         return logout_time;
     }
 

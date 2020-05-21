@@ -31,21 +31,23 @@ create unique index likes_like_id_uindex
     on likes (like_id);
 
 -- auto-generated definition
-create table activity
-(
-    user_id     integer not null
-        constraint activity_pk
-            primary key,
-    logout_time varchar
-);
-
 -- create table activity
 -- (
---     user_id     integer                  not null
+--     user_id     integer not null
 --         constraint activity_pk
 --             primary key,
---     logout_time timestamp with time zone not null
+--     logout_time varchar
 -- );
+
+create table activity
+(
+    user_id     integer   not null
+        constraint activity_pk
+            primary key
+        constraint activity_users_user_id_fk
+            references users,
+    logout_time timestamp not null
+);
 
 
 create unique index activity_user_id_uindex
