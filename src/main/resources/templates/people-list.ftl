@@ -56,8 +56,8 @@
                                  ${likedOne.job}
                                  </td>
                                 <td class="align-middle">
-                                    Last Login: 6/10/2017<br>
-                                    <small class="text-muted">5 days ago</small>
+                                    Last Login: ${lastlogin} <br>
+<#--                                    <small class="text-muted">5 days ago</small>-->
                                 </td>
                                 </tr>
                             </#list>

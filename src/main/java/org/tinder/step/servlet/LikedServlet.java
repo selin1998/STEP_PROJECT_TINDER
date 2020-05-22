@@ -1,5 +1,8 @@
 package org.tinder.step.servlet;
+import org.tinder.step.Converter.DateConverter;
+import org.tinder.step.entity.Activity;
 import org.tinder.step.entity.User;
+import org.tinder.step.service.ActivityService;
 import org.tinder.step.service.CookiesService;
 import org.tinder.step.service.LikesService;
 import org.tinder.step.util.TemplateEngine;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,12 +21,15 @@ public class LikedServlet extends HttpServlet {
     private final TemplateEngine engine;
     LikesService likeService;
     CookiesService cookiesService;
+    ActivityService activityService;
+    DateConverter converter;
     int loggedUserId;
 
     public LikedServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
         likeService=new LikesService();
-
+        activityService=new ActivityService();
+        converter=new DateConverter();
     }
 
 
@@ -37,7 +44,11 @@ public class LikedServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId);
+        Activity activity = activityService.getActivityById(loggedUserId);
+        String logout_time = converter.DateToString(activity.getLogout_time());
+
         liked.put("likedlist",allLikedUsers);
+        liked.put("lastlogin",logout_time);
         engine.render("people-list.ftl",liked,resp);
 
     }
