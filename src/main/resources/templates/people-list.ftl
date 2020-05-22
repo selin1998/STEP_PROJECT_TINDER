@@ -56,8 +56,12 @@
                                  ${likedOne.job}
                                  </td>
                                 <td class="align-middle">
-                                    Last Login: ${lastlogin} <br>
-<#--                                    <small class="text-muted">5 days ago</small>-->
+                                    <#list lastlogin as lastlog>
+                                        <#if lastlog.user_id == likedOne.user_id>
+                                            Last Activity: ${lastlog.getLogout_time_String()}<br>
+                                            <small class="text-muted">${lastlog.howMuchTimeAgo()}</small>
+                                        </#if>
+                                    </#list>
                                 </td>
                                 </tr>
                             </#list>

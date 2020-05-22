@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -72,37 +73,27 @@ public class ActivityDAO implements DAO<Activity> {
 
     @Override
     public List<Activity> getAll() {
-        return null;
-    }
+        String sql="SELECT * FROM activity";
 
-//    public static void main(String[] args) {
-//
-//        ZonedDateTime zonedDateTimeNow = ZonedDateTime.now(ZoneId.of("UTC"));
-//        Activity act=new Activity(1,zonedDateTimeNow);
-//        Activity act1=new Activity(2,zonedDateTimeNow);
-//        Activity act2=new Activity(3,zonedDateTimeNow);
-//        Activity act3=new Activity(4,zonedDateTimeNow);
-//        Activity act4=new Activity(5,zonedDateTimeNow);
-//        Activity act5=new Activity(6,zonedDateTimeNow);
-//        Activity act6=new Activity(7,zonedDateTimeNow);
-//        Activity act7=new Activity(8,zonedDateTimeNow);
-//        Activity act8=new Activity(9,zonedDateTimeNow);
-//        Activity act9=new Activity(10,zonedDateTimeNow);
-//        Activity act10=new Activity(11,zonedDateTimeNow);
-//
-//        DAO<Activity> dao=new ActivityDAO();
-//        dao.add(act);
-//        dao.add(act1);
-//        dao.add(act2);
-//        dao.add(act3);
-//        dao.add(act4);
-//        dao.add(act5);
-//        dao.add(act6);
-//        dao.add(act7);
-//        dao.add(act8);
-//        dao.add(act9);
-//        dao.add(act10);
-//        System.out.println(dao.get(1).getLogout_time());
-//    }
+
+        List<Activity> activities = new ArrayList<>();
+        Activity act=null;
+        try{
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                act=new Activity(rs.getInt("user_id")
+                        , rs.getTimestamp("logout_time").toInstant().atZone(ZoneId.systemDefault()));
+                activities.add(act);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return activities;
+
+
+    }
 
 }

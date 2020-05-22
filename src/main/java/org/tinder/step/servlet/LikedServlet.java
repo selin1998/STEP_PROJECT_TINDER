@@ -44,11 +44,10 @@ public class LikedServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId);
-        Activity activity = activityService.getActivityById(loggedUserId);
-        String logout_time = converter.DateToString(activity.getLogout_time());
 
+        List<Activity> allLikedUsersLogoutTime = activityService.getAllLikedUsersLogoutTime(loggedUserId);
         liked.put("likedlist",allLikedUsers);
-        liked.put("lastlogin",logout_time);
+        liked.put("lastlogin",allLikedUsersLogoutTime);
         engine.render("people-list.ftl",liked,resp);
 
     }
