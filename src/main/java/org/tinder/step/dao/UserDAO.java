@@ -109,7 +109,6 @@ public class UserDAO implements DAO<User> {
                 }
             }
 
-
         try {
             PreparedStatement ps=con.prepareStatement(sql);
 
@@ -214,6 +213,5 @@ public class UserDAO implements DAO<User> {
         }
         return result;
     }
-
 
 }
