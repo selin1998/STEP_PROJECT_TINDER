@@ -10,6 +10,7 @@ public class Activity {
     private int user_id;
     private ZonedDateTime logout_time;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd/MM/yyyy");
+    
     public Activity(int user_id, ZonedDateTime logout_time) {
         this.user_id = user_id;
         this.logout_time = logout_time;
@@ -39,7 +40,7 @@ public class Activity {
     public String howMuchTimeAgo(){
         Period p = Period.between( logout_time.toLocalDate() , ZonedDateTime.now(ZoneId.of("UTC")).toLocalDate() );
         int days=p.getDays();
-        return (days==0)?"Today":(days==1)?"Yesterday":days+"days ago";
+        return (days==0)?"Today":(days==1)?"Yesterday":days+" days ago";
     }
 
     @Override

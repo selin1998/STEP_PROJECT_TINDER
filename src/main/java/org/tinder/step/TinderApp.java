@@ -16,7 +16,7 @@ import java.util.EnumSet;
 
 public class TinderApp {
 
-        private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
+    private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
         Server server = new Server(HerokuEnv.port());

@@ -9,8 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class LikesDAO implements DAO<Like> {
     DatabaseConnection db=new DatabaseConnection();
@@ -22,7 +21,7 @@ public class LikesDAO implements DAO<Like> {
     }
 
     @Override
-    public Like get(int id) {
+    public Optional<Like> get(int id) {
         String sql="SELECT * FROM likes WHERE like_id=? ";
         Like like=null;
         try {
@@ -35,15 +34,9 @@ public class LikesDAO implements DAO<Like> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return like;
+        return Optional.ofNullable(like);
     }
 
-
-
-    @Override
-    public List<Like> getAllBy(Predicate<Like> p) {
-        return getAll().stream().filter(p).collect(Collectors.toList());
-    }
 
     @Override
     public List<Like> getAll() {

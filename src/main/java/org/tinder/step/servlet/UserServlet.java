@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +39,14 @@ public class UserServlet extends HttpServlet {
         }
 
         allUserIds = serviceUser.getAllUserIds(loggedUserId);
+
         HashMap<String, Object> data = new HashMap<>();
-        User user=serviceUser.getById(allUserIds.get(i));
+        User user= null;
+        try {
+            user = serviceUser.getById(allUserIds.get(i));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         data.put("user",user);
         engine.render("like-page.ftl",data,resp);
 
@@ -49,17 +56,16 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean isThereClick=(req.getParameter("like")!=null ||req.getParameter("dislike")!=null);
         int userIdOfImage=allUserIds.get(i);
+        int MaxUserId= Collections.max(allUserIds);
         if(req.getParameter("like")!=null){
-            try {
+
                 serviceLike.add(new Like(loggedUserId,userIdOfImage));
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+
         }
         if(req.getParameter("dislike")!=null){
             serviceLike.remove(loggedUserId,userIdOfImage);
         }
-        if( isThereClick && userIdOfImage<allUserIds.size() ){
+        if( isThereClick && userIdOfImage<MaxUserId ){
             i++;
             doGet(req,resp);
         }
@@ -70,4 +76,6 @@ public class UserServlet extends HttpServlet {
         }
 
     }
+
+
 }

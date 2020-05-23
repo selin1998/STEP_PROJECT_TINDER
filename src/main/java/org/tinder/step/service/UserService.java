@@ -13,7 +13,7 @@ public class UserService {
 
 
     UserDAO daoUser = new UserDAO();
-
+    DAO<User> dao=new UserDAO();
 
     public UserService() throws SQLException {
     }
@@ -25,11 +25,11 @@ public class UserService {
 
     public List<Integer> getAllUserIds(int loggeduserId) {
 
-        return daoUser.getAll().stream().map(u -> u.getUser_id()).filter(f -> f != loggeduserId).collect(Collectors.toList());
+        return dao.getAll().stream().map(u -> u.getUser_id()).filter(f -> f != loggeduserId).sorted().collect(Collectors.toList());
     }
 
     public User getById(int id) {
-        return daoUser.get(id);
+        return dao.get(id).get();
     }
 
 //    public int getUserId(String login, String password) {

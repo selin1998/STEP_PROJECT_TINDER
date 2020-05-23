@@ -52,23 +52,29 @@
                 <div class="col-md-12 chats pt-3 pl-2 pr-3 pb-3">
                     <ul class="p-0">
                         <#list messages as msg >
-                            <#if msg.user_id_from == loggedUserId>
+                            <#if msg.user_id_from == loggedUser.user_id>
                                 <li class="send-msg float-right mb-2">
-                                <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                ${msg.message}
-                                </p>
+                                    <div class="sender-img">
+                                        <img src="${loggedUser.photoLink}" class="float-right">
+                                    </div>
+                                    <div class="receive-msg-desc float-right ml-2">
+                                            <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
+                                             ${msg.message}
+                                            </p>
+                                    <span class="receive-msg-time">${loggedUser.name}, ${msg.getTimeString()}</span>
+                                    </div>
                                 </li>
                             <#else>
                                 <li class="receive-msg float-left mb-2">
-                                <div class="sender-img">
-                                <img src="${targetUser.photoLink}" class="float-left">
-                                </div>
-                                <div class="receive-msg-desc float-left ml-2">
-                                <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                ${msg.message}
-                                </p>
-                                <span class="receive-msg-time">${targetUser.name}, ${msg.getTimeString()}</span>
-                                </div>
+                                    <div class="sender-img">
+                                         <img src="${targetUser.photoLink}" class="float-left">
+                                    </div>
+                                    <div class="receive-msg-desc float-left ml-2">
+                                            <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
+                                            ${msg.message}
+                                            </p>
+                                    <span class="receive-msg-time">${targetUser.name}, ${msg.getTimeString()}</span>
+                                    </div>
                                 </li>
                             </#if>
                         </#list>
@@ -81,7 +87,7 @@
                             <i class="fa fa-smile-o"></i>
                         </div>
                         <div class="col-md-7 pl-0">
-                            <input name="input" type="text" class="border-0" placeholder="Press enter" />
+                            <input name="input" type="text" class="border-0" placeholder="Press enter" required/>
                         </div>
                         <div class="col-md-3 text-right options-right">
                             <i class="fa fa-picture-o mr-2"></i>

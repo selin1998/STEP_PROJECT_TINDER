@@ -19,8 +19,8 @@ public class ActivityService {
         return daoActivity.add(act);
     }
 
-    public Activity getActivityById(int id){
-        return daoActivity.get(id);
+    public Activity getActivityById(int id) throws Exception {
+        return daoActivity.get(id).orElseThrow(Exception::new);
     }
 
     public List<Activity> getAllLikedUsersLogoutTime(int user_id_from){

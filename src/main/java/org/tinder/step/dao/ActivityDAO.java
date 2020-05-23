@@ -4,14 +4,11 @@ import org.tinder.step.db.DatabaseConnection;
 import org.tinder.step.entity.Activity;
 
 import java.sql.*;
-import java.time.Instant;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Optional;
 
 public class ActivityDAO implements DAO<Activity> {
     DatabaseConnection db=new DatabaseConnection();
@@ -48,7 +45,7 @@ public class ActivityDAO implements DAO<Activity> {
         return false;
     }
 
-    public Activity get(int id){
+    public Optional<Activity> get(int id){
         Activity act=null;
 
         String sql="SELECT * FROM activity WHERE user_id=?";
@@ -63,13 +60,9 @@ public class ActivityDAO implements DAO<Activity> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return act;
+        return Optional.ofNullable(act);
     }
 
-    @Override
-    public List<Activity> getAllBy(Predicate<Activity> p) {
-        return null;
-    }
 
     @Override
     public List<Activity> getAll() {

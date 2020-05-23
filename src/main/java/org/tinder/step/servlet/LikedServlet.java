@@ -1,5 +1,5 @@
 package org.tinder.step.servlet;
-import org.tinder.step.Converter.DateConverter;
+
 import org.tinder.step.entity.Activity;
 import org.tinder.step.entity.User;
 import org.tinder.step.service.ActivityService;
@@ -22,14 +22,14 @@ public class LikedServlet extends HttpServlet {
     LikesService likeService;
     CookiesService cookiesService;
     ActivityService activityService;
-    DateConverter converter;
+
     int loggedUserId;
 
     public LikedServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
         likeService=new LikesService();
         activityService=new ActivityService();
-        converter=new DateConverter();
+
     }
 
 
@@ -44,7 +44,7 @@ public class LikedServlet extends HttpServlet {
             e.printStackTrace();
         }
         List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId);
-
+        
         List<Activity> allLikedUsersLogoutTime = activityService.getAllLikedUsersLogoutTime(loggedUserId);
         liked.put("likedlist",allLikedUsers);
         liked.put("lastlogin",allLikedUsersLogoutTime);

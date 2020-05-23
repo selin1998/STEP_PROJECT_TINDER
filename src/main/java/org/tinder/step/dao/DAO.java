@@ -1,11 +1,15 @@
 package org.tinder.step.dao;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public interface DAO<T> {
 
-    T get(int id);
-    List<T> getAllBy(Predicate<T> p);
+    Optional<T> get(int id);
+    default List<T> getAllBy(Predicate<T> p){
+        return getAll().stream().filter(p).collect(Collectors.toList());
+    }
     List<T> getAll();
     boolean add(T object) ;
     boolean remove(T object);

@@ -9,8 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
+import static java.sql.Types.NULL;
 
 public class UserDAO implements DAO<User> {
     DatabaseConnection db=new DatabaseConnection();
@@ -22,7 +23,7 @@ public class UserDAO implements DAO<User> {
     }
 
     @Override
-    public User get(int id) {
+    public Optional<User> get(int id) {
         String sql="SELECT * FROM users WHERE user_id=? ";
         User user=null;
         try {
@@ -42,14 +43,9 @@ public class UserDAO implements DAO<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+        return Optional.of(user);
     }
 
-
-    @Override
-    public List<User> getAllBy(Predicate<User> p) {
-        return getAll().stream().filter(p).collect(Collectors.toList());
-    }
 
     @Override
     public List<User> getAll() {
@@ -83,33 +79,16 @@ public class UserDAO implements DAO<User> {
         String sql="INSERT INTO users (login,password,name,surname,job,photoLink,user_id) VALUES(?,?,?,?,?,?,?)";
         String sql2="SELECT MAX(user_id) from users ";
 
-        PreparedStatement ps2= null;
-        try {
-            ps2 = con.prepareStatement(sql2);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        ResultSet rs= null;
-        try {
-            rs = ps2.executeQuery();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        int max=0;
-            while(true){
-                try {
-                    if (!rs.next()) break;
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                try {
-                    max=rs.getInt("max")+1;
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
 
         try {
+            PreparedStatement ps2=con.prepareStatement(sql2);
+            ResultSet rs=ps2.executeQuery();
+            int max=0;
+            while(rs.next()){
+                if(rs.getInt("max")!=NULL)  max=rs.getInt("max")+1;
+
+            }
+
             PreparedStatement ps=con.prepareStatement(sql);
 
             ps.setString(1,user.getLogin());

@@ -22,7 +22,9 @@ public class LikesService {
     }
 
     public List<User> getAllLikedUsers(int user_id_from){
+     //   System.out.println(getAllLikedUserIds(user_id_from));
         return  getAllLikedUserIds(user_id_from).stream().map(i->service.getById(i)).collect(Collectors.toList());
+
     }
 
     public List<Integer> getAllLikedUserIds(int user_id_from){
@@ -30,7 +32,7 @@ public class LikesService {
 
     }
 
-    public void add(Like like) throws SQLException {
+    public void add(Like like)  {
 
         if(doesLikeExist(like.getUser_id_from(),like.getUser_id_to())) daoLike.add(like);
     }

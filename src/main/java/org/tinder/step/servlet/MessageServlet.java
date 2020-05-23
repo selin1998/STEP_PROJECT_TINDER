@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,10 +43,18 @@ public class MessageServlet extends HttpServlet {
         int user_id_to = Integer.parseInt(path.substring(1));
 
         List<Message> archiveChat = mservice.getMessagesForCurrentChat(loggedUserId, user_id_to);
-        User targetUser = uservice.getById(user_id_to);
+        User targetUser = null;
+        User loggedUser=null;
+        try {
+            targetUser = uservice.getById(user_id_to);
+            loggedUser=uservice.getById(loggedUserId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         data.put("messages",archiveChat);
         data.put("targetUser",targetUser);
-        data.put("loggedUserId",loggedUserId);
+        data.put("loggedUser",loggedUser);
         engine.render("chat.ftl",data,resp);
     }
 
@@ -53,7 +62,7 @@ public class MessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
-        LocalDateTime time=LocalDateTime.now();
+        ZonedDateTime time=ZonedDateTime.now();
         try {
             mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
         } catch (SQLException throwables) {
