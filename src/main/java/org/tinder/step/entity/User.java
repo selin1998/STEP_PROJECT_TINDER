@@ -21,8 +21,9 @@ public class User  {
     private String password;
     private String name;
     private String surname;
-    private String photoLink;
     private String job;
+    private String photoLink;
+
 
 
     public User( String login, String password,String name, String surname,String job, String photoLink) {
