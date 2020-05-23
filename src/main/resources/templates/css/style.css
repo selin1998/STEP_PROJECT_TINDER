@@ -2,7 +2,7 @@
 
 .container{
   height: 100vh;
-  padding: 20px 0;
+
 }
 
 html,
@@ -450,7 +450,37 @@ input:focus{
     word-break: break-all;
 }
 
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+
 .receive-msg p {
     word-break: break-all;
 }
+
+
+
+
 </style>
