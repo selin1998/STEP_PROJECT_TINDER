@@ -54,7 +54,8 @@ public class ActivityDAO implements DAO<Activity> {
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                act=new Activity(rs.getInt("user_id"),rs.getTimestamp("logout_time").toInstant().atZone(ZoneId.systemDefault()));
+                act=new Activity(rs.getInt("user_id")
+                        ,rs.getTimestamp("logout_time").toInstant().atZone(ZoneId.systemDefault()));
             }
         }
         catch (SQLException e) {
