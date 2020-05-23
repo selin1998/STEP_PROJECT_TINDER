@@ -4,8 +4,10 @@ import lombok.*;
 
 import java.util.Objects;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+//@Data
 @ToString
 @Getter
 @Setter
@@ -13,27 +15,32 @@ import java.util.Objects;
 public class User  {
 
     private int user_id;
+    @NonNull
     private String login;
+    @NonNull
     private String password;
     private String name;
     private String surname;
     private String photoLink;
     private String job;
 
+
+    public User( String login, String password,String name, String surname,String job, String photoLink) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.job=job;
+        this.photoLink = photoLink;
+    }
+
 //    public User( int user_id,String login, String password,String name, String surname,String job, String photoLink) {
 //
 //        this(login,password,name,surname,job,photoLink);
 //        this.user_id=user_id;
 //    }
-//
-//    public User( String login, String password,String name, String surname,String job, String photoLink) {
-//        this.name = name;
-//        this.surname = surname;
-//        this.login = login;
-//        this.password = password;
-//        this.job=job;
-//        this.photoLink = photoLink;
-//    }
+
+
 //
 //    public User(String login, String password) {
 //        this.login = login;

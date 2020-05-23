@@ -18,7 +18,11 @@ public class Message {
     private int user_id_to;
     private String message;
     private ZonedDateTime time;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd/MM/yyyy");
+
+    public String getTimeString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd/MM/yyyy");
+        return formatter.format(time);
+    }
 
 //    public int getUser_id_from() {
 //        return user_id_from;
@@ -51,9 +55,6 @@ public class Message {
 //        this.message = message;
 //    }
 //
-//    public String getTimeString() {
-//        return formatter.format(time);
-//    }
 //
 //    public ZonedDateTime getTime(){
 //        return time;
