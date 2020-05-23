@@ -15,8 +15,8 @@ import java.util.Objects;
 @Setter
 @EqualsAndHashCode
 public class Activity {
-     int user_id;
-     ZonedDateTime logout_time;
+    private int user_id;
+    private ZonedDateTime logout_time;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm dd/MM/yyyy");
 
 //    public Activity(int user_id, ZonedDateTime logout_time) {
