@@ -13,7 +13,7 @@ public class MessageDAO implements DAO<Message> {
     DatabaseConnection db=new DatabaseConnection();
     Connection con;
 
-    public MessageDAO() throws SQLException {
+    public MessageDAO()  {
         this.con = db.connection();
     }
 
@@ -35,7 +35,7 @@ public class MessageDAO implements DAO<Message> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.ofNullable(msg);
+        return Optional.of(msg);
     }
 
 

@@ -16,7 +16,7 @@ public class LikesDAO implements DAO<Like> {
     Connection con;
 
 
-    public LikesDAO() throws SQLException {
+    public LikesDAO() {
         this.con = db.connection();
     }
 

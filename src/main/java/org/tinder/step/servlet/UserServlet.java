@@ -23,9 +23,10 @@ public class UserServlet extends HttpServlet {
     CookiesService cookiesService;
     int loggedUserId;
     List<Integer> allUserIds;
-    int i=0;
-    public UserServlet(TemplateEngine engine) throws SQLException {
+    int i;
+    public UserServlet(TemplateEngine engine)  {
         this.engine = engine;
+        i=0;
     }
 
     @Override

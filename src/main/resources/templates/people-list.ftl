@@ -35,7 +35,7 @@
 
     </div>
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-12">
 
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">

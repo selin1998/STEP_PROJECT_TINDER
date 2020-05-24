@@ -25,7 +25,7 @@ public class LikedServlet extends HttpServlet {
 
     int loggedUserId;
 
-    public LikedServlet(TemplateEngine engine) throws SQLException {
+    public LikedServlet(TemplateEngine engine)  {
         this.engine = engine;
         likeService=new LikesService();
         activityService=new ActivityService();

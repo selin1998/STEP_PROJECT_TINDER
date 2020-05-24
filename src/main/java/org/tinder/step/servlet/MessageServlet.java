@@ -25,7 +25,7 @@ public class MessageServlet extends HttpServlet {
     CookiesService cookiesService;
     int loggedUserId;
 
-    public MessageServlet(TemplateEngine engine) throws SQLException {
+    public MessageServlet(TemplateEngine engine)  {
         this.engine = engine;
     }
 
@@ -63,11 +63,9 @@ public class MessageServlet extends HttpServlet {
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
         ZonedDateTime time=ZonedDateTime.now();
-        try {
-            mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
+        mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
+
         doGet(req,resp);
 
     }
