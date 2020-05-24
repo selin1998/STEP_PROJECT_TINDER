@@ -43,11 +43,11 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="table-container">
+                    <div class="table-container table-responsive">
                         <table class="table-users table" border="0">
                             <tbody>
                              <#list likedlist as likedOne>
-                                <tr class="clickable-row" data-href="messages/${likedOne.user_id}">
+                                <tr class="clickable-row " data-href="messages/${likedOne.user_id}">
                                 <td width="20">
                                 <div class="avatar-img">
                                 <img class="img-circle small-image" src=${likedOne.photoLink}>  
