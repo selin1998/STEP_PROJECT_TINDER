@@ -333,6 +333,7 @@ input:focus{
 .options .hover:hover, .options .arrow-up:hover .fa-arrow-up{
     color: #fff;
 }
+
 .options .fa-arrow-up{
     transform: rotate(40deg);
 }
