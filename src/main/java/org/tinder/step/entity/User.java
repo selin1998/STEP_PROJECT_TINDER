@@ -14,6 +14,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 public class User  {
 
+
     private int user_id;
     @NonNull
     private String login;
