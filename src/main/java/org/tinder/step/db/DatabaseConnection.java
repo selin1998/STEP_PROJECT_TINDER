@@ -13,7 +13,7 @@ public class DatabaseConnection {
 
     public Connection connect() throws SQLException {
 
-        return DriverManager.getConnection(jdbc_url(), jdbc_username(), jdbc_password());
+        return DriverManager.getConnection(URL,NAME,PWD);
 
     }
 
