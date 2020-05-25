@@ -19,8 +19,15 @@ public class TinderApp {
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(HerokuEnv.port());
+
+
+        // Please, run this app using your local database, our remote db is giving us hard time
+        // it sometimes refuses connection, sometimes allows.
+
+
+
         TemplateEngine engine = new TemplateEngine();
+        Server server = new Server(HerokuEnv.port());
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(new ServletHolder(new MainPageServlet()), "/");
         handler.addServlet(new ServletHolder(new LoginServlet(engine)), "/login");
@@ -35,6 +42,7 @@ public class TinderApp {
         handler.addFilter(HttpFilter.class, "/users", ft);
         handler.addFilter(HttpFilter.class, "/liked", ft);
         handler.addFilter(HttpFilter.class, "/messages/*", ft);
+
 
 
         server.setHandler(handler);

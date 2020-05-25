@@ -6,3 +6,7 @@ INSERT INTO activity (user_id, logout_time) VALUES (8, '2020-05-22 17:05:02.0000
 INSERT INTO activity (user_id, logout_time) VALUES (1, '2020-05-21 17:00:20.000000');
 INSERT INTO activity (user_id, logout_time) VALUES (4, '2020-05-21 17:03:55.000000');
 INSERT INTO activity (user_id, logout_time) VALUES (7, '2020-05-22 19:34:07.000000');
+INSERT INTO activity (user_id, logout_time) VALUES (10, '2020-05-25 04:53:42.000000');
+INSERT INTO activity (user_id, logout_time) VALUES (12, '2020-05-22 11:11:16.000000');
+INSERT INTO activity (user_id, logout_time) VALUES (13, '2020-05-22 11:11:16.000000');
+INSERT INTO activity (user_id, logout_time) VALUES (14, '2020-05-22 10:11:17.000000');
