@@ -8,12 +8,15 @@ public class DatabaseConnection {
     protected final static String URL = "jdbc:postgresql://ec2-54-246-89-234.eu-west-1.compute.amazonaws.com:5432/d87hm9l72493m5";
     protected final static String NAME = "nqgaomrdgooiuc";
     protected final static String PWD = "6bc08a423fd1532490c7a3f43410f90b43b12a3e26adeb82dc856cd6279ad35e";
+//    protected final static String URL = "jdbc:postgresql://localhost:5432/postgres";
+//    protected final static String NAME = "postgres";
+//    protected final static String PWD = "dreamgirl15";
 
     private Connection connection = null;
 
     public Connection connect() throws SQLException {
 
-        return DriverManager.getConnection(URL,NAME,PWD);
+        return DriverManager.getConnection(jdbc_url(), jdbc_username(), jdbc_password());
 
     }
 

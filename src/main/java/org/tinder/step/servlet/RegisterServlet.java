@@ -16,7 +16,7 @@ public class RegisterServlet extends HttpServlet {
     private TemplateEngine engine;
     private UserService userService = new UserService();
 
-    public RegisterServlet(TemplateEngine engine)  {
+    public RegisterServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
     }
 

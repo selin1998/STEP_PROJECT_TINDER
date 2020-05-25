@@ -15,7 +15,7 @@ public class UserService {
     UserDAO daoUser = new UserDAO();
     DAO<User> dao=new UserDAO();
 
-    public UserService()  {
+    public UserService() throws SQLException {
     }
 
 
@@ -40,40 +40,35 @@ public class UserService {
         return daoUser.add(user);
     }
 
-//
-//    public boolean checkUser(String login, String password) {
-//        User result = getByLoginAndPassword(login, password);
-//        return result != null && result.getPassword().equals(password) && result.getLogin().equals(login);
-//    }
-//    public boolean checkUserByLogin(String login, String password) {
-//        return getByLoginAndPassword(login, password) != null;
-//    }
-    private User getByLoginAndPassword(User user) {
-        Predicate<User> u1 = u -> u.getLogin().equals(user.getLogin());
-        Predicate<User> u2 = u -> u.getPassword().equals(user.getPassword());
-        List<User> users = dao.getAllBy(u1.and(u2)).stream().collect(Collectors.toList());
-        return users.get(0);
+/*
+    public boolean checkUser(String login, String password) {
+        User result = getByLoginAndPassword(login, password);
+        return result != null && result.getPassword().equals(password) && result.getLogin().equals(login);
     }
-
+    public boolean checkUserByLogin(String login, String password) {
+        return getByLoginAndPassword(login, password) != null;
+    }
+    private User getByLoginAndPassword(String login, String password) {
+        Predicate<User> u1 = u -> u.getLogin().equals(login);
+        Predicate<User> u2 = u -> u.getPassword().equals(password);
+        List<User> user = daoUser.getAllBy(u1.and(u2)).stream().collect(Collectors.toList());
+        return user.get(0);
+    }
+*/
 
     //checks when sign in
     public boolean checkUser(User user) {
-        User result = dao.getAllBy(u->u==user).get(0);
+        User result = daoUser.getByLoginAndPassword(user);
         return result != null && result.getPassword().equals(user.getPassword()) && result.getLogin().equals(user.getLogin());
     }
 
     //checks when sign up -> such user exist or no
     public boolean checkUserByLogin(User user) {
-
-       return !dao.getAllBy(u -> u.getLogin().equals(user.getLogin())).isEmpty();
-
+       return daoUser.getUserByLogin(user)!=null;
     }
 
     public int getUserId(String login, String password) {
-        Predicate<User> u1 = u -> u.getLogin().equals(login);
-        Predicate<User> u2 = u -> u.getPassword().equals(password);
-        List<User> users = dao.getAllBy(u1.and(u2)).stream().collect(Collectors.toList());
-        return users.get(0).getUser_id();
+        return daoUser.getUserId(login, password);
     }
 
 }

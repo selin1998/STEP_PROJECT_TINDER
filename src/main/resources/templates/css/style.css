@@ -1,5 +1,3 @@
-
-
 <style type="text/css">
 
 .container{
@@ -333,7 +331,6 @@ input:focus{
 .options .hover:hover, .options .arrow-up:hover .fa-arrow-up{
     color: #fff;
 }
-
 .options .fa-arrow-up{
     transform: rotate(40deg);
 }
@@ -365,7 +362,7 @@ input:focus{
     display: inline-block;
     list-style: none;
     clear: both;
-    font-size: 15px;
+    font-size: 13px;
 }
 .send-msg{
     position: relative;

@@ -12,7 +12,7 @@ public class ActivityService {
     DAO<Activity> daoActivity=new ActivityDAO();
     LikesService service=new LikesService();
 
-    public ActivityService()  {
+    public ActivityService() throws SQLException {
     }
 
     public boolean addLogout_time(Activity act){

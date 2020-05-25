@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     private UserService usersService=new UserService();
     private CookiesService cookiesService;
 
-    public LoginServlet(TemplateEngine engine)  {
+    public LoginServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
     }
 

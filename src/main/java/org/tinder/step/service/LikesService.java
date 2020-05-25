@@ -16,7 +16,7 @@ public class LikesService {
     DAO<Like> daoLike=new LikesDAO();
     UserService service;
 
-    public LikesService()  {
+    public LikesService() throws SQLException {
 
         service=new UserService();
     }

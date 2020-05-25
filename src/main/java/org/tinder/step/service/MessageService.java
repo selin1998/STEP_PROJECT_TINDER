@@ -14,7 +14,7 @@ public class MessageService {
 
     DAO<Message> daoMsg=new MessageDAO();
 
-    public MessageService() {
+    public MessageService() throws SQLException {
     }
 
     public List<Message> getMessagesForCurrentChat(int user_id_from, int user_id_to){
@@ -26,7 +26,7 @@ public class MessageService {
         return daoMsg.getAllBy(m1.and(m2).or(m3.and(m4))).stream().collect(Collectors.toList());
     }
 
-    public void add(Message msg)  {
+    public void add(Message msg) throws SQLException {
         daoMsg.add(msg);
     }
 
