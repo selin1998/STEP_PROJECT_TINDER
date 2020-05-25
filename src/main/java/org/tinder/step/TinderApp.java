@@ -21,8 +21,9 @@ public class TinderApp {
     public static void main(String[] args) throws Exception {
 
 
-        // Please, run this app using your local database, our remote db is giving us hard time
-        // it sometimes refuses connection, sometimes allows.
+        // http://tinder-step-project-ss.herokuapp.com/login
+        // http://tinder-app-step-project.herokuapp.com/login
+
 
 
 
