@@ -12,7 +12,7 @@ public class DatabaseConnection {
 //    protected final static String NAME = "postgres";
 //    protected final static String PWD = "dreamgirl15";
 
-    private Connection connection ;
+    private static Connection connection ;
 
     public Connection connect() throws SQLException {
 
