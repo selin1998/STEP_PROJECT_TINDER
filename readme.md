@@ -31,5 +31,6 @@ http://tinder-app-step-project.herokuapp.com/login
 - Jetty Servlet Container.
 - Java Template Engine Freemarker.
 - PostgreSQL.
+- Lombok.
 - Bootstrap templates as the basis for all web pages.
 - Cloud Application Platform Heroku.
