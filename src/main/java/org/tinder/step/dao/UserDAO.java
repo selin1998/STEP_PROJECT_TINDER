@@ -1,5 +1,6 @@
 package org.tinder.step.dao;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.db.DatabaseConnection;
 import org.tinder.step.entity.User;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static java.sql.Types.NULL;
 
+@Log4j2
 public class UserDAO implements DAO<User> {
     DatabaseConnection db=new DatabaseConnection();
     Connection con;
@@ -41,7 +43,9 @@ public class UserDAO implements DAO<User> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return Optional.of(user);
     }
@@ -68,7 +72,9 @@ public class UserDAO implements DAO<User> {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return users;
     }
@@ -102,7 +108,9 @@ public class UserDAO implements DAO<User> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
 
@@ -119,7 +127,9 @@ public class UserDAO implements DAO<User> {
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }
@@ -137,7 +147,9 @@ public class UserDAO implements DAO<User> {
                 result = rs.getInt("user_id");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }
@@ -162,7 +174,9 @@ public class UserDAO implements DAO<User> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
 
         return result;
@@ -188,7 +202,9 @@ public class UserDAO implements DAO<User> {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }

@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.User;
 import org.tinder.step.service.CookiesService;
 import org.tinder.step.service.UserService;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+@Log4j2
 public class RegisterServlet extends HttpServlet {
     private TemplateEngine engine;
     private UserService userService = new UserService();
@@ -52,7 +54,7 @@ public class RegisterServlet extends HttpServlet {
         if (result == true) {
             cookiesService.addCookie(userService.getUserId(login, password));
         } else {
-            new SQLException("Something wrong.User can not be added!");
+            log.error(new SQLException("Something wrong.User can not be added!"));
         }
 
         resp.sendRedirect("/users");

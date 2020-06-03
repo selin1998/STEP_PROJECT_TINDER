@@ -1,33 +1,27 @@
 package org.tinder.step.filter;
 
-import org.tinder.step.service.CookiesService;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class HttpFilter implements Filter {
-    CookiesService cservice;
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+interface HttpFilter extends Filter {
 
+  default void init(FilterConfig filterConfig) throws ServletException {
+  }
+
+  void doHttpFilter(HttpServletRequest request,
+                    HttpServletResponse response,
+                    FilterChain chain) throws IOException, ServletException;
+
+  default void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    if (request instanceof HttpServletRequest) {
+      doHttpFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
+    } else {
+      chain.doFilter(request, response);
     }
+  }
 
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) servletRequest;
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        cservice=new CookiesService(req,resp);
-        if(cservice.getCookie()==null){
-            resp.sendRedirect("/login");
-        }
-        else filterChain.doFilter(req,resp);
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
+  default void destroy() {
+  }
 }

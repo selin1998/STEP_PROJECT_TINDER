@@ -1,4 +1,5 @@
 package org.tinder.step.servlet;
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Like;
 import org.tinder.step.entity.User;
 import org.tinder.step.service.CookiesService;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+@Log4j2
 public class UserServlet extends HttpServlet {
     private final TemplateEngine engine;
     UserService serviceUser=new UserService();
@@ -35,7 +37,8 @@ public class UserServlet extends HttpServlet {
         try {
             loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+//            e.printStackTrace();
         }
 
         allUserIds = serviceUser.getAllUserIds(loggedUserId);
@@ -45,7 +48,9 @@ public class UserServlet extends HttpServlet {
         try {
             user = serviceUser.getById(allUserIds.get(i));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         data.put("user",user);
         engine.render("like-page.ftl",data,resp);

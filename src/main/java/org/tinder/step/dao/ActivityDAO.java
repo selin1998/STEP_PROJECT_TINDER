@@ -1,5 +1,6 @@
 package org.tinder.step.dao;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.db.DatabaseConnection;
 import org.tinder.step.entity.Activity;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 public class ActivityDAO implements DAO<Activity> {
     DatabaseConnection db=new DatabaseConnection();
     Connection con;
@@ -34,7 +36,8 @@ public class ActivityDAO implements DAO<Activity> {
 
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+//            e.printStackTrace();
         }
 
         return result;
@@ -59,7 +62,8 @@ public class ActivityDAO implements DAO<Activity> {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+//            e.printStackTrace();
         }
         return Optional.ofNullable(act);
     }
@@ -82,7 +86,7 @@ public class ActivityDAO implements DAO<Activity> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         return activities;

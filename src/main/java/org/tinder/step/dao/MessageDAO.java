@@ -1,5 +1,6 @@
 package org.tinder.step.dao;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.db.DatabaseConnection;
 import org.tinder.step.entity.Message;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 public class MessageDAO implements DAO<Message> {
     DatabaseConnection db=new DatabaseConnection();
     Connection con;
@@ -33,7 +35,9 @@ public class MessageDAO implements DAO<Message> {
                     , rs.getString("message")
                     , rs.getTimestamp("time").toInstant().atZone(ZoneId.systemDefault()));
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return Optional.ofNullable(msg);
     }
@@ -57,7 +61,9 @@ public class MessageDAO implements DAO<Message> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
 
         return messages;
@@ -78,7 +84,9 @@ public class MessageDAO implements DAO<Message> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }
@@ -93,7 +101,9 @@ public class MessageDAO implements DAO<Message> {
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }

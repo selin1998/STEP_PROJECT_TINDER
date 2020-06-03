@@ -1,5 +1,6 @@
 package org.tinder.step.dao;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.db.DatabaseConnection;
 import org.tinder.step.entity.Like;
 
@@ -10,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+@Log4j2
 
 public class LikesDAO implements DAO<Like> {
     DatabaseConnection db=new DatabaseConnection();
@@ -32,7 +35,8 @@ public class LikesDAO implements DAO<Like> {
             like=new Like(rs.getInt("user_id_from")
                     , rs.getInt("user_id_to"));
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+//            e.printStackTrace();
         }
         return Optional.ofNullable(like);
     }
@@ -53,7 +57,9 @@ public class LikesDAO implements DAO<Like> {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
 
         return likes;
@@ -71,7 +77,9 @@ public class LikesDAO implements DAO<Like> {
             result=true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }
@@ -87,7 +95,9 @@ public class LikesDAO implements DAO<Like> {
             ps.executeUpdate();
             result=true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+
+//            e.printStackTrace();
         }
         return result;
     }

@@ -1,9 +1,12 @@
 package org.tinder.step.db;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Log4j2
 public class DatabaseConnection {
     protected final static String URL = "jdbc:postgresql://ec2-54-246-89-234.eu-west-1.compute.amazonaws.com:5432/d87hm9l72493m5";
     protected final static String NAME = "nqgaomrdgooiuc";
@@ -44,7 +47,8 @@ public class DatabaseConnection {
             try {
                 connection = connect();
             } catch (SQLException e) {
-                throw new IllegalStateException("Something went wrong.");
+                log.error(new IllegalStateException("Something went wrong."));
+//                throw new IllegalStateException("Something went wrong.");
             }
         }
 

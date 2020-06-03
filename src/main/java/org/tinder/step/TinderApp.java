@@ -4,7 +4,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.tinder.step.filter.HttpFilter;
+import org.tinder.step.filter.IsAnyBodyLoggedFilter;
 import org.tinder.step.filter.LoginFilter;
 import org.tinder.step.filter.RegisterFilter;
 import org.tinder.step.servlet.*;
@@ -16,16 +16,12 @@ import java.util.EnumSet;
 
 public class TinderApp {
 
+    // http://tinder-step-project-ss.herokuapp.com/login
+    // http://tinder-app-step-project.herokuapp.com/login
+
     private static final EnumSet<DispatcherType> ft = EnumSet.of(DispatcherType.REQUEST);
 
     public static void main(String[] args) throws Exception {
-
-
-        // http://tinder-step-project-ss.herokuapp.com/login
-        // http://tinder-app-step-project.herokuapp.com/login
-
-
-
 
         TemplateEngine engine = new TemplateEngine();
         Server server = new Server(HerokuEnv.port());
@@ -40,10 +36,9 @@ public class TinderApp {
 
         handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login", ft);
         handler.addFilter(new FilterHolder(new RegisterFilter(engine)), "/signup", ft);
-        handler.addFilter(HttpFilter.class, "/users", ft);
-        handler.addFilter(HttpFilter.class, "/liked", ft);
-        handler.addFilter(HttpFilter.class, "/messages/*", ft);
-
+        handler.addFilter(IsAnyBodyLoggedFilter.class, "/users", ft);
+        handler.addFilter(IsAnyBodyLoggedFilter.class, "/liked", ft);
+        handler.addFilter(IsAnyBodyLoggedFilter.class, "/messages/*", ft);
 
 
         server.setHandler(handler);

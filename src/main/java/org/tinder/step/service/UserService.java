@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class UserService {
 
-
     UserDAO daoUser = new UserDAO();
     DAO<User> dao=new UserDAO();
 
@@ -32,29 +31,9 @@ public class UserService {
         return dao.get(id).get();
     }
 
-//    public int getUserId(String login, String password) {
-//        return getByLoginAndPassword(login, password).getUser_id();
-//    }
-
     public boolean addUser(User user) {
         return daoUser.add(user);
     }
-
-/*
-    public boolean checkUser(String login, String password) {
-        User result = getByLoginAndPassword(login, password);
-        return result != null && result.getPassword().equals(password) && result.getLogin().equals(login);
-    }
-    public boolean checkUserByLogin(String login, String password) {
-        return getByLoginAndPassword(login, password) != null;
-    }
-    private User getByLoginAndPassword(String login, String password) {
-        Predicate<User> u1 = u -> u.getLogin().equals(login);
-        Predicate<User> u2 = u -> u.getPassword().equals(password);
-        List<User> user = daoUser.getAllBy(u1.and(u2)).stream().collect(Collectors.toList());
-        return user.get(0);
-    }
-*/
 
     //checks when sign in
     public boolean checkUser(User user) {

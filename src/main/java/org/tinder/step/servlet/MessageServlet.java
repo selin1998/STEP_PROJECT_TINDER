@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Message;
 import org.tinder.step.entity.User;
 import org.tinder.step.service.CookiesService;
@@ -18,6 +19,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
+@Log4j2
 public class MessageServlet extends HttpServlet {
     private final TemplateEngine engine;
     MessageService mservice=new MessageService();
@@ -36,7 +38,7 @@ public class MessageServlet extends HttpServlet {
         try {
             loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         HashMap<String, Object> data = new HashMap<>();
         String path = req.getPathInfo();
@@ -49,7 +51,7 @@ public class MessageServlet extends HttpServlet {
             targetUser = uservice.getById(user_id_to);
             loggedUser=uservice.getById(loggedUserId);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         data.put("messages",archiveChat);
@@ -66,7 +68,7 @@ public class MessageServlet extends HttpServlet {
         try {
             mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            log.error(throwables.getMessage());
         }
         doGet(req,resp);
 

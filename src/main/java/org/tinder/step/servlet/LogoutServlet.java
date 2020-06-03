@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Activity;
 import org.tinder.step.entity.User;
 import org.tinder.step.service.ActivityService;
@@ -17,6 +18,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+@Log4j2
 public class LogoutServlet extends HttpServlet {
     private TemplateEngine engine;
     private ActivityService activityService;
@@ -38,7 +40,7 @@ public class LogoutServlet extends HttpServlet {
         try {
             loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         ZonedDateTime zonedDateTimeNow = ZonedDateTime.now(ZoneId.of("UTC"));
 
