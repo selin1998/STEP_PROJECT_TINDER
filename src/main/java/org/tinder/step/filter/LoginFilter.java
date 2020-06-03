@@ -44,8 +44,6 @@ public class LoginFilter implements HttpFilter {   //implements Filter
             } catch (Exception e) {
                 log.error(e.getMessage());
                 response.sendRedirect("/login");
-//                data.put("message", e.getMessage());
-//                engine.render("error_message.ftl", data,(HttpServletResponse) response);
             }
         } else {
             chain.doFilter(request, response);
