@@ -6,20 +6,21 @@ import org.tinder.step.service.CookiesService;
 import org.tinder.step.service.UserService;
 import org.tinder.step.util.TemplateEngine;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
-
 @Log4j2
 public class RegisterServlet extends HttpServlet {
-    private TemplateEngine engine;
+    private TemplateEngine engine=new TemplateEngine();
     private UserService userService = new UserService();
 
-    public RegisterServlet(TemplateEngine engine) throws SQLException {
-        this.engine = engine;
+    public RegisterServlet() throws IOException {
+
     }
 
 
@@ -39,15 +40,15 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String name = req.getParameter("Name");
         String surname = req.getParameter("Surname");
-        String photoLink = req.getParameter("photolink");
+        Part photoLink = req.getPart("photolink");
         String job = req.getParameter("Job");
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
 
-        User user = new User(login, password, name, surname,job,photoLink);
+        User user = new User(login, password, name, surname,job,photoLink.getInputStream().readAllBytes());
         boolean result = userService.addUser(user);
 
         CookiesService cookiesService = new CookiesService(req, resp);

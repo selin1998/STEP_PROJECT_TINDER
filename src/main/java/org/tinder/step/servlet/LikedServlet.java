@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Activity;
 import org.tinder.step.entity.User;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.stream.Collectors;
 @Log4j2
 public class LikedServlet extends HttpServlet {
     private final TemplateEngine engine;
@@ -25,32 +28,34 @@ public class LikedServlet extends HttpServlet {
     CookiesService cookiesService;
     ActivityService activityService;
 
-    int loggedUserId;
-
-    public LikedServlet(TemplateEngine engine) throws SQLException {
+    public LikedServlet(TemplateEngine engine) {
         this.engine = engine;
-        likeService=new LikesService();
-        activityService=new ActivityService();
+        likeService = new LikesService();
+        activityService = new ActivityService();
 
     }
 
 
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        cookiesService=new CookiesService(req,resp);
+        cookiesService = new CookiesService(req, resp);
 
         HashMap<String, Object> liked = new HashMap<>();
-        try {
-            loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId);
-        
+
+        int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
+
+        List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId).stream().map(i -> i.get()).collect(Collectors.toList());
+
+
+
         List<Activity> allLikedUsersLogoutTime = activityService.getAllLikedUsersLogoutTime(loggedUserId);
-        liked.put("likedlist",allLikedUsers);
-        liked.put("lastlogin",allLikedUsersLogoutTime);
-        engine.render("people-list.ftl",liked,resp);
+        liked.put("likedlist", allLikedUsers);
+        liked.put("lastlogin", allLikedUsersLogoutTime);
+
+        if (allLikedUsers.stream().noneMatch(i -> i.equals(Optional.empty())))
+            engine.render("people-list.ftl", liked, resp);
+
 
     }
 

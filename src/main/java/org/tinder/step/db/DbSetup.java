@@ -19,7 +19,7 @@ public class DbSetup {
 
     public static void main(String[] args) {
         DatabaseConnection db = new DatabaseConnection();
-        migrate(db.URL,db.NAME,db.PWD);
+        migrate(db.URL, db.NAME, db.PWD);
     }
 
 }

@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Message;
 import org.tinder.step.entity.User;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Optional;
 @Log4j2
 public class MessageServlet extends HttpServlet {
     private final TemplateEngine engine;
@@ -31,45 +32,36 @@ public class MessageServlet extends HttpServlet {
         this.engine = engine;
     }
 
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         cookiesService=new CookiesService(req,resp);
 
-        try {
-            loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+
+        int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
+
         HashMap<String, Object> data = new HashMap<>();
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
 
         List<Message> archiveChat = mservice.getMessagesForCurrentChat(loggedUserId, user_id_to);
-        User targetUser = null;
-        User loggedUser=null;
-        try {
-            targetUser = uservice.getById(user_id_to);
-            loggedUser=uservice.getById(loggedUserId);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+        Optional<User> targetUser =uservice.getById(user_id_to);
+        Optional<User> loggedUser=uservice.getById(loggedUserId);
 
         data.put("messages",archiveChat);
-        data.put("targetUser",targetUser);
-        data.put("loggedUser",loggedUser);
+        data.put("targetUser",targetUser.get());
+        data.put("loggedUser",loggedUser.get());
         engine.render("chat.ftl",data,resp);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
         ZonedDateTime time=ZonedDateTime.now();
-        try {
-            mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
-        } catch (SQLException throwables) {
-            log.error(throwables.getMessage());
-        }
+        mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
         doGet(req,resp);
 
     }

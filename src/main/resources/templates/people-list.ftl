@@ -35,11 +35,11 @@
 
     </div>
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-12">
 
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">User List</h3>
+                    <h3 class="panel-title">User List -> Click to go to chat</h3>
                 </div>
 
                 <div class="panel-body">
@@ -50,7 +50,7 @@
                                 <tr class="clickable-row " data-href="messages/${likedOne.user_id}">
                                 <td width="20">
                                 <div class="avatar-img">
-                                <img class="img-circle small-image" src=${likedOne.photoLink}>  
+                                <img class="img-circle small-image" src=${likedOne.getImageAsBase64()}>  
                                 </div>
                                 </td>
                                 <td class="align-middle">

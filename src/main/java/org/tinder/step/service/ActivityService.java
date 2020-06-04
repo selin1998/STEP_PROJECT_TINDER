@@ -9,13 +9,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ActivityService {
-    DAO<Activity> daoActivity=new ActivityDAO();
-    LikesService service=new LikesService();
+    DAO<Activity> daoActivity;
+    LikesService service;
 
-    public ActivityService() throws SQLException {
+    public ActivityService() {
+        daoActivity = new ActivityDAO();
+        service = new LikesService();
     }
 
-    public boolean addLogout_time(Activity act){
+    public boolean addLogout_time(Activity act) {
         return daoActivity.add(act);
     }
 
@@ -23,9 +25,8 @@ public class ActivityService {
         return daoActivity.get(id).orElseThrow(Exception::new);
     }
 
-    public List<Activity> getAllLikedUsersLogoutTime(int user_id_from){
+    public List<Activity> getAllLikedUsersLogoutTime(int user_id_from) {
         List<Integer> allLikedUserIds = service.getAllLikedUserIds(user_id_from);
-        List<Activity> logouts = daoActivity.getAll().stream().filter(i->allLikedUserIds.contains(i.getUser_id())).collect(Collectors.toList());
-        return logouts;
+        return daoActivity.getAll().stream().filter(i -> allLikedUserIds.contains(i.getUser_id())).collect(Collectors.toList());
     }
 }

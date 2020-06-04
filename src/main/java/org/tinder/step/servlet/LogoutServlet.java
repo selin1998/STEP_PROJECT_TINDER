@@ -1,5 +1,6 @@
 package org.tinder.step.servlet;
 
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.tinder.step.entity.Activity;
 import org.tinder.step.entity.User;
@@ -23,33 +24,31 @@ public class LogoutServlet extends HttpServlet {
     private TemplateEngine engine;
     private ActivityService activityService;
     CookiesService cookiesService;
-    int loggedUserId;
+
 
     public LogoutServlet(TemplateEngine engine) throws SQLException {
         this.engine = engine;
-        activityService=new ActivityService();
+        activityService = new ActivityService();
     }
 
 
-//    @lombok.SneakyThrows     //--maybe later
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        cookiesService= new CookiesService(req, resp);
+        cookiesService = new CookiesService(req, resp);
 
-        //add logout_time
-        try {
-            loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+
+        int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
+
         ZonedDateTime zonedDateTimeNow = ZonedDateTime.now(ZoneId.of("UTC"));
 
-        Activity activity=new Activity(loggedUserId,zonedDateTimeNow);
+        Activity activity = new Activity(loggedUserId, zonedDateTimeNow);
 
         activityService.addLogout_time(activity);
 
-        //remove cookies for logout
+
         cookiesService.removeCookie();
+        log.info(loggedUserId+" is logged out");
         resp.sendRedirect("/login");
     }
 

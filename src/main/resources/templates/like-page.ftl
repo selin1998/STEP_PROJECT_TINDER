@@ -37,10 +37,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-lg-12 col-md-12 text-center">
-                                <img src=${user.photoLink} class="mx-auto rounded-circle img-fluid">
+                                <img src=${user.getImageAsBase64()} class="mx-auto rounded-circle img-fluid">
                                 <h3 class="mb-0 text-truncated">${user.name}  ${user.surname}</h3>
                                 <br>
                             </div>
+                            <input type="hidden" name="user_id" value=${user.user_id}>
                             <div class="col-12 col-lg-6">
                                 <button name="dislike" type="submit" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Dislike</button>
                             </div>

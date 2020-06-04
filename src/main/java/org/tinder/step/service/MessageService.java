@@ -6,30 +6,29 @@ import org.tinder.step.dao.MessageDAO;
 import org.tinder.step.entity.Message;
 
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MessageService {
 
-    DAO<Message> daoMsg=new MessageDAO();
+    MessageDAO daoMsg;
 
-    public MessageService() throws SQLException {
+    public MessageService() {
+        daoMsg = new MessageDAO();
     }
 
-    public List<Message> getMessagesForCurrentChat(int user_id_from, int user_id_to){
-        Predicate<Message>m1= msg->msg.getUser_id_from()==user_id_from;
-        Predicate<Message>m2= msg-> msg.getUser_id_to()==user_id_to;
-        Predicate<Message>m3= msg->msg.getUser_id_from()==user_id_to;
-        Predicate<Message>m4= msg-> msg.getUser_id_to()==user_id_from;
-
-        return daoMsg.getAllBy(m1.and(m2).or(m3.and(m4))).stream().collect(Collectors.toList());
+    public List<Message> getMessagesForCurrentChat(int user_id_from, int user_id_to) {
+        Comparator<Message> comparator = Comparator.comparing(msg -> msg.getTime().truncatedTo(ChronoUnit.MINUTES));
+        return daoMsg.getMessagesForChat(user_id_from, user_id_to).stream().sorted(comparator).collect(Collectors.toList());
     }
 
-    public void add(Message msg) throws SQLException {
+    public void add(Message msg) {
         daoMsg.add(msg);
     }
-
 
 
 }

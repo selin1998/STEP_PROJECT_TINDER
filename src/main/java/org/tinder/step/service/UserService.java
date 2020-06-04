@@ -6,34 +6,35 @@ import org.tinder.step.entity.User;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class UserService {
 
-    UserDAO daoUser = new UserDAO();
-    DAO<User> dao=new UserDAO();
 
-    public UserService() throws SQLException {
+    UserDAO daoUser;
+
+    public UserService() {
+        daoUser = new UserDAO();
+
     }
 
-
-    public List<User> getAllUsers() {
-        return daoUser.getAll();
-    }
 
     public List<Integer> getAllUserIds(int loggeduserId) {
 
-        return dao.getAll().stream().map(u -> u.getUser_id()).filter(f -> f != loggeduserId).sorted().collect(Collectors.toList());
+        return daoUser.getAll().stream().map(u -> u.getUser_id()).filter(f -> f != loggeduserId).sorted().collect(Collectors.toList());
     }
 
-    public User getById(int id) {
-        return dao.get(id).get();
+    public Optional<User> getById(int id) {
+        return daoUser.get(id);
     }
+
 
     public boolean addUser(User user) {
         return daoUser.add(user);
     }
+
 
     //checks when sign in
     public boolean checkUser(User user) {
@@ -43,7 +44,7 @@ public class UserService {
 
     //checks when sign up -> such user exist or no
     public boolean checkUserByLogin(User user) {
-       return daoUser.getUserByLogin(user)!=null;
+        return daoUser.getUserByLogin(user) != null;
     }
 
     public int getUserId(String login, String password) {

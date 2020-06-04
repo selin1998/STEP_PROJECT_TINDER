@@ -1,5 +1,5 @@
 package org.tinder.step.servlet;
-import lombok.extern.log4j.Log4j2;
+import lombok.SneakyThrows;
 import org.tinder.step.service.CookiesService;
 import org.tinder.step.service.UserService;
 import org.tinder.step.util.TemplateEngine;
@@ -14,19 +14,20 @@ import java.util.HashMap;
 
 public class LoginServlet extends HttpServlet {
     private final TemplateEngine engine;
-    private UserService usersService = new UserService();
+    private UserService usersService=new UserService();
     private CookiesService cookiesService;
 
-    public LoginServlet(TemplateEngine engine) throws SQLException {
+    public LoginServlet(TemplateEngine engine)  {
         this.engine = engine;
     }
 
+    @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
 
 
         HashMap<String, Object> data = new HashMap<>();
-        data.put("Email", "Email");
+        data.put("Email","Email");
         data.put("message", "Please sign in");
         engine.render("login.ftl", data, resp);
     }
@@ -36,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
         cookiesService = new CookiesService(req, resp);
-        cookiesService.addCookie(usersService.getUserId(login, password));
+        cookiesService.addCookie(usersService.getUserId(login,password));
 
         resp.sendRedirect("/users");
     }

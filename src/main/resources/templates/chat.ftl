@@ -60,7 +60,7 @@
                             <#if msg.user_id_from == loggedUser.user_id>
                                 <li class="send-msg float-right mb-2">
                                     <div class="sender-img">
-                                        <img src="${loggedUser.photoLink}" class="float-right">
+                                        <img src="${loggedUser.getImageAsBase64()}" class="float-right">
                                     </div>
                                     <div class="receive-msg-desc float-right ml-2">
                                             <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
@@ -72,7 +72,7 @@
                             <#else>
                                 <li class="receive-msg float-left mb-2">
                                     <div class="sender-img">
-                                         <img src="${targetUser.photoLink}" class="float-left">
+                                         <img src="${targetUser.getImageAsBase64()}" class="float-left">
                                     </div>
                                     <div class="receive-msg-desc float-left ml-2">
                                             <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">

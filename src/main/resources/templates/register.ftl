@@ -15,7 +15,7 @@
 </head>
 
 <body class="text-center">
-<form class="form" method="post">
+<form class="form" method="post" enctype="multipart/form-data">
     <h1 class="h3 mb-3 font-weight-normal">${message}</h1>
 
     <label for="inputName" class="sr-only">Name</label>
@@ -24,7 +24,7 @@
     <input type="text" id="inputSurname" class="form-control" name="Surname" placeholder="Surname" required>
 
     <label for="photoLink" class="sr-only">Photo Link</label>
-    <input type="text" id="photoLink" class="form-control" name="photolink" placeholder="Photo Link" required>
+    <input type="file" id="photoLink" class="form-control" name="photolink" placeholder="Photo Link" required>
 
     <label for="inputJob" class="sr-only">Job</label>
     <input type="text" id="inputJob" class="form-control" placeholder="Job or position"  name="Job" required>
