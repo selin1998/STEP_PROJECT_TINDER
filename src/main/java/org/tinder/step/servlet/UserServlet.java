@@ -26,12 +26,13 @@ public class UserServlet extends HttpServlet {
     LikesService serviceLike;
     CookiesService cookiesService;
 
-    int idx = 0;
+    int idx ;
 
     public UserServlet(TemplateEngine engine) {
         this.engine = engine;
         serviceUser = new UserService();
         serviceLike = new LikesService();
+
     }
 
     @SneakyThrows
@@ -41,7 +42,10 @@ public class UserServlet extends HttpServlet {
 
 
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
-
+        if(cookiesService.isUserNewlyLogged()){
+            idx=0;
+            cookiesService.removeNewUserMark();
+        }
 
         List<Integer> allUserIds = serviceUser.getAllUserIds(loggedUserId);
 
@@ -66,11 +70,14 @@ public class UserServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
 
         cookiesService = new CookiesService(req, resp);
+
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
         int userIdOfImage = Integer.parseInt(req.getParameter("user_id"));
+
+
 
         if (req.getParameter("like") != null) {
 

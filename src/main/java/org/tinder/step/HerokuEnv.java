@@ -10,7 +10,7 @@ public class HerokuEnv {
             return Integer.parseInt(System.getenv("PORT"));
         } catch (NumberFormatException ex) {
             log.error(ex.getMessage());
-            return 9000;
+            return 8080;
         }
     }
 }

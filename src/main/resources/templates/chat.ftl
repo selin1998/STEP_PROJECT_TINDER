@@ -9,15 +9,15 @@
     <title>Chat</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
-    <#include "css/bootstrap.min.css">
 
     <#include "css/style.css">
+    <#include "css/bootstrap.min.css">
+
 </head>
 <body style="background-color:#FE3C72;">
 
 <div class="container">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><img src="https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-300x72.png" alt="Tinder Brand colors" width="300" height="72" class="alignnone size-medium wp-image-737 lazyloaded" data-lazy-srcset="https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-300x72.png 300w, https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-768x184.png 768w, https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo.png 833w" data-lazy-sizes="(max-width: 300px) 100vw, 300px" data-lazy-src="https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-300x72.png" sizes="(max-width: 300px) 100vw, 300px" srcset="https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-300x72.png 300w, https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo-768x184.png 768w, https://mk0brandpalettefeufc.kinstacdn.com/wp-content/uploads/2018/10/TinderLogo.png 833w" data-was-processed="true"></h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="/users">Find mate</a>
             <a class="p-2 text-dark" href="/liked">My mate list</a>
@@ -26,6 +26,7 @@
         </nav>
 
     </div>
+    <input type="hidden" name="user_id" value=${targetUser.user_id}>
     <div class="row">
         <div class="chat-main col-6 offset-3">
             <div class="col-md-12 chat-header">

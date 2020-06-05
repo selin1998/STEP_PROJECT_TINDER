@@ -9,6 +9,7 @@ import java.util.Optional;
 public class CookiesService {
 
     private final String COOKIE_NAME = "activeUser";
+    private final String NEWLY_LOGGED_USER = "newUser";
     private HttpServletRequest req;
     private HttpServletResponse resp;
 
@@ -30,6 +31,34 @@ public class CookiesService {
     public void addCookie(int id) {
         resp.addCookie(new Cookie(COOKIE_NAME, String.valueOf(id)));
     }
+
+    public void addNewUserMark(int id){
+        resp.addCookie(new Cookie(NEWLY_LOGGED_USER,String.valueOf(id)));
+    }
+
+    public void removeNewUserMark(){
+        Arrays
+                .stream(req.getCookies())
+                .filter(c -> c.getName().equalsIgnoreCase(NEWLY_LOGGED_USER))
+                .map(c -> new Cookie(c.getName(), c.getValue()) {{
+                    setMaxAge(0);
+                }})
+                .forEach(resp::addCookie);
+    }
+
+    public boolean isUserNewlyLogged(){
+        boolean result=false;
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals(NEWLY_LOGGED_USER)) {
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
 
     public void removeCookie() {
         Arrays

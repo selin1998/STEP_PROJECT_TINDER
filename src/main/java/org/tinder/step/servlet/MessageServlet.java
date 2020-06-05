@@ -26,41 +26,46 @@ public class MessageServlet extends HttpServlet {
     MessageService mservice=new MessageService();
     UserService uservice=new UserService();
     CookiesService cookiesService;
-    int loggedUserId;
 
-    public MessageServlet(TemplateEngine engine) throws SQLException {
+    public MessageServlet(TemplateEngine engine) {
         this.engine = engine;
     }
 
     @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
+
         cookiesService=new CookiesService(req,resp);
 
 
         int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
 
         HashMap<String, Object> data = new HashMap<>();
+
         String path = req.getPathInfo();
+
         int user_id_to = Integer.parseInt(path.substring(1));
 
         List<Message> archiveChat = mservice.getMessagesForCurrentChat(loggedUserId, user_id_to);
-        Optional<User> targetUser =uservice.getById(user_id_to);
-        Optional<User> loggedUser=uservice.getById(loggedUserId);
+        User targetUser = uservice.getById(user_id_to).orElseThrow(Exception::new);
+        User loggedUser = uservice.getById(loggedUserId).orElseThrow(Exception::new);
 
         data.put("messages",archiveChat);
-        data.put("targetUser",targetUser.get());
-        data.put("loggedUser",loggedUser.get());
+        data.put("targetUser",targetUser);
+        data.put("loggedUser",loggedUser);
         engine.render("chat.ftl",data,resp);
     }
 
     @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
+
+
         int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
+
+        ZonedDateTime time=ZonedDateTime.now();
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
-        ZonedDateTime time=ZonedDateTime.now();
         mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
         doGet(req,resp);
 

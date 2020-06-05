@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("Password");
         cookiesService = new CookiesService(req, resp);
         cookiesService.addCookie(usersService.getUserId(login,password));
-
+        cookiesService.addNewUserMark(usersService.getUserId(login,password));
         resp.sendRedirect("/users");
     }
 }
