@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 
         HashMap<String, Object> data = new HashMap<>();
         data.put("Email","Email");
-        data.put("message", "Please sign in");
+        data.put("message", "Please, sign in");
         engine.render("login.ftl", data, resp);
     }
 

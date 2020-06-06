@@ -46,6 +46,7 @@
                     <div class="table-container table-responsive">
                         <table class="table-users table" border="0">
                             <tbody>
+                            <#if likedlist??>
                              <#list likedlist as likedOne>
                                 <tr class="clickable-row " data-href="messages/${likedOne.user_id}">
                                 <td width="20">
@@ -70,6 +71,7 @@
                                 </td>
                                 </tr>
                             </#list>
+                            </#if>
                             </tbody>
                         </table>
                     </div>

@@ -19,14 +19,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
 @Log4j2
 public class UserServlet extends HttpServlet {
     private final TemplateEngine engine;
     UserService serviceUser;
     LikesService serviceLike;
-    CookiesService cookiesService;
-
-    int idx ;
+    int idx;
 
     public UserServlet(TemplateEngine engine) {
         this.engine = engine;
@@ -38,12 +37,11 @@ public class UserServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        cookiesService = new CookiesService(req, resp);
 
-
+        CookiesService cookiesService = new CookiesService(req, resp);
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
-        if(cookiesService.isUserNewlyLogged()){
-            idx=0;
+        if (cookiesService.isUserNewlyLogged()) {
+            idx = 0;
             cookiesService.removeNewUserMark();
         }
 
@@ -56,7 +54,6 @@ public class UserServlet extends HttpServlet {
         Optional<User> user;
         if (idx < last_idx) {
             user = serviceUser.getById(allUserIds.get(idx));
-
             data.put("user", user.get());
             engine.render("like-page.ftl", data, resp);
             idx++;
@@ -70,24 +67,24 @@ public class UserServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
 
-        cookiesService = new CookiesService(req, resp);
+        CookiesService cookiesService = new CookiesService(req, resp);
 
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
         int userIdOfImage = Integer.parseInt(req.getParameter("user_id"));
 
-
-
         if (req.getParameter("like") != null) {
 
             serviceLike.add(new Like(loggedUserId, userIdOfImage));
-            log.info(loggedUserId +" likes "+userIdOfImage);
+            log.info(loggedUserId + " likes " + userIdOfImage);
 
         }
         if (req.getParameter("dislike") != null) {
+
             serviceLike.remove(loggedUserId, userIdOfImage);
-            log.info(loggedUserId +" dislikes "+userIdOfImage);
+            log.info(loggedUserId + " dislikes " + userIdOfImage);
+
         }
 
         doGet(req, resp);

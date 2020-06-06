@@ -33,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
         data.put("Job", "Job");
         data.put("Email", "Email");
         data.put("Password", "Password");
-        data.put("message", "Please sign in");
+        data.put("message", "Please, sign in");
 
         engine.render("register.ftl", data, resp);
 
@@ -54,6 +54,7 @@ public class RegisterServlet extends HttpServlet {
         CookiesService cookiesService = new CookiesService(req, resp);
         if (result == true) {
             cookiesService.addCookie(userService.getUserId(login, password));
+            cookiesService.addNewUserMark(userService.getUserId(login, password));
         } else {
             log.error(new SQLException("Something wrong.User can not be added!"));
         }

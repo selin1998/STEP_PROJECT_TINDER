@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @Log4j2
 public class LikedServlet extends HttpServlet {
     private final TemplateEngine engine;
@@ -45,16 +46,16 @@ public class LikedServlet extends HttpServlet {
 
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
 
-        List<User> allLikedUsers = likeService.getAllLikedUsers(loggedUserId).stream().map(i -> i.get()).collect(Collectors.toList());
-
-
+        List<Optional<User>> optionalAllLikedUsers = likeService.getAllLikedUsers(loggedUserId);
 
         List<Activity> allLikedUsersLogoutTime = activityService.getAllLikedUsersLogoutTime(loggedUserId);
-        liked.put("likedlist", allLikedUsers);
-        liked.put("lastlogin", allLikedUsersLogoutTime);
 
-        if (allLikedUsers.stream().noneMatch(i -> i.equals(Optional.empty())))
-            engine.render("people-list.ftl", liked, resp);
+        if (optionalAllLikedUsers.stream().noneMatch(i -> i.equals(Optional.empty()))) {
+            List<User> allLikedUsers = optionalAllLikedUsers.stream().map(i -> i.get()).collect(Collectors.toList());
+            liked.put("likedlist", allLikedUsers);
+            liked.put("lastlogin", allLikedUsersLogoutTime);
+        }
+        engine.render("people-list.ftl", liked, resp);
 
 
     }

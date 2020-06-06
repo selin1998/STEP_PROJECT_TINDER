@@ -1,4 +1,3 @@
-
 create table users
 (
     user_id   serial  not null
@@ -9,9 +8,8 @@ create table users
     login     varchar not null,
     password  varchar not null,
     job       varchar not null,
-    photolink varchar
+    photolink bytea
 );
-
 
 create unique index users_login_uindex
     on users (login);

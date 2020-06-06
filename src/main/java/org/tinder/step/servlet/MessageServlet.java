@@ -23,19 +23,22 @@ import java.util.Optional;
 @Log4j2
 public class MessageServlet extends HttpServlet {
     private final TemplateEngine engine;
-    MessageService mservice=new MessageService();
-    UserService uservice=new UserService();
-    CookiesService cookiesService;
+    MessageService mservice;
+    UserService uservice;
+
 
     public MessageServlet(TemplateEngine engine) {
+
         this.engine = engine;
+        mservice=new MessageService();
+        uservice=new UserService();
     }
 
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
 
-        cookiesService=new CookiesService(req,resp);
+        CookiesService cookiesService=new CookiesService(req,resp);
 
 
         int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
@@ -59,7 +62,7 @@ public class MessageServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)  {
-
+        CookiesService cookiesService=new CookiesService(req,resp);
 
         int loggedUserId=cookiesService.getCookieValue().orElseThrow(Exception::new);
 
@@ -67,6 +70,7 @@ public class MessageServlet extends HttpServlet {
         String path = req.getPathInfo();
         int user_id_to = Integer.parseInt(path.substring(1));
         mservice.add(new Message(loggedUserId,user_id_to,req.getParameter("input"),time));
+        log.info(loggedUserId+" sended message to "+user_id_to);
         doGet(req,resp);
 
     }

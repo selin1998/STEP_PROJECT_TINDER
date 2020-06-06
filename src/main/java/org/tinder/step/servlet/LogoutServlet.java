@@ -34,9 +34,8 @@ public class LogoutServlet extends HttpServlet {
 
     @SneakyThrows
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)  {
         cookiesService = new CookiesService(req, resp);
-
 
         int loggedUserId = cookiesService.getCookieValue().orElseThrow(Exception::new);
 
@@ -46,8 +45,8 @@ public class LogoutServlet extends HttpServlet {
 
         activityService.addLogout_time(activity);
 
-
         cookiesService.removeCookie();
+
         log.info(loggedUserId+" is logged out");
         resp.sendRedirect("/login");
     }

@@ -4,7 +4,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.tinder.step.filter.HttpFilter;
+import org.tinder.step.filter.IsAnybodyLoggedFilter;
 import org.tinder.step.filter.LoginFilter;
 import org.tinder.step.filter.RegisterFilter;
 import org.tinder.step.servlet.*;
@@ -21,10 +21,7 @@ public class TinderApp {
     public static void main(String[] args) throws Exception {
 
 
-        // http://tinder-step-project-ss.herokuapp.com/login
         // http://tinder-app-step-project.herokuapp.com/login
-
-
 
 
         TemplateEngine engine = new TemplateEngine();
@@ -32,7 +29,6 @@ public class TinderApp {
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(new ServletHolder(new MainPageServlet()), "/");
         handler.addServlet(new ServletHolder(new LoginServlet(engine)), "/login");
-        //  handler.addServlet(new ServletHolder(new RegisterServlet(engine)), "/signup");
         handler.addServlet(new ServletHolder(new LogoutServlet(engine)), "/logout");
         handler.addServlet(new ServletHolder(new UserServlet(engine)), "/users");
         handler.addServlet(new ServletHolder(new LikedServlet(engine)), "/liked");
@@ -41,11 +37,9 @@ public class TinderApp {
 
         handler.addFilter(new FilterHolder(new LoginFilter(engine)), "/login", ft);
         handler.addFilter(new FilterHolder(new RegisterFilter(engine)), "/signup", ft);
-        handler.addFilter(HttpFilter.class, "/users", ft);
-        handler.addFilter(HttpFilter.class, "/liked", ft);
-        handler.addFilter(HttpFilter.class, "/messages/*", ft);
-
-
+        handler.addFilter(IsAnybodyLoggedFilter.class, "/users", ft);
+        handler.addFilter(IsAnybodyLoggedFilter.class, "/liked", ft);
+        handler.addFilter(IsAnybodyLoggedFilter.class, "/messages/*", ft);
 
         server.setHandler(handler);
         server.start();
