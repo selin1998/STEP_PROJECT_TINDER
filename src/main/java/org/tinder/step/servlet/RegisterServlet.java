@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 @Log4j2
@@ -47,6 +48,8 @@ public class RegisterServlet extends HttpServlet {
         String job = req.getParameter("Job");
         String login = req.getParameter("Email");
         String password = req.getParameter("Password");
+
+        // photoLink.getInputStream().readAllBytes(); -> since Java 9
 
         User user = new User(login, password, name, surname,job,photoLink.getInputStream().readAllBytes());
         boolean result = userService.addUser(user);
