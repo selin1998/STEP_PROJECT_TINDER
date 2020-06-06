@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -51,11 +52,20 @@ public class RegisterServlet extends HttpServlet {
 
         // photoLink.getInputStream().readAllBytes(); -> since Java 9
 
-        User user = new User(login, password, name, surname,job,photoLink.getInputStream().readAllBytes());
+        InputStream inputStream = photoLink.getInputStream();
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[16384];
+
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        User user = new User(login, password, name, surname,job,buffer.toByteArray());
         boolean result = userService.addUser(user);
 
         CookiesService cookiesService = new CookiesService(req, resp);
-        if (result == true) {
+        if (result) {
             cookiesService.addCookie(userService.getUserId(login, password));
             cookiesService.addNewUserMark(userService.getUserId(login, password));
         } else {
